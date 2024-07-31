@@ -10,7 +10,7 @@ import javafx.scene.control.ComboBox;
 public class ButtonNewUser {
 
     @FXML
-    private TableView<Contact> contactTableView;
+    private TableView<Kontact> contactTableView;
     
     // Champs du formulaire
     @FXML
@@ -52,7 +52,7 @@ public class ButtonNewUser {
         String git = gitField.getText();
 
         // Créer un nouvel objet Contact
-        Contact newContact = new Contact(lastName, firstName, surname, gender, dateOfBirth, address, zipCode, personalPhone, professionalPhone, email, git);
+        Kontact newContact = new Kontact(lastName, firstName, surname, gender, dateOfBirth, address, zipCode, personalPhone, professionalPhone, email, git);
 
         // Ajouter le nouveau contact à la TableView
         contactTableView.getItems().add(newContact);

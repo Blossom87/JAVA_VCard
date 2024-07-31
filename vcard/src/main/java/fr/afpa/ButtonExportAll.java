@@ -1,29 +1,33 @@
 package fr.afpa;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+
+import java.io.File;
+import java.util.List;
+
 public class ButtonExportAll {
 
     @FXML
     private Button exportAllButton;
 
     @FXML
-    private TableView<Contact> contactTableView;
+    private TableView<Kontact> contactTableView;
 
     @FXML
     private void handleExportAll() {
-        // Implémenter la logique d'exportation des données
-        // Exemple : Exporter tous les contacts dans un fichier CSV
+        // Récupérer les données de la TableView
+        List<Kontact> contacts = contactTableView.getItems();
 
-        // Code d'exportation à implémenter ici...
-        System.out.println("Exporting all contacts...");
+        // Initialiser Jackson ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        // Par exemple, itérer sur tous les éléments de la TableView
-        for (Contact contact : contactTableView.getItems()) {
-            // Logique d'exportation, e.g., écrire dans un fichier CSV
-            System.out.println(contact); // Remplacer par une logique réelle d'exportation
-        }
+        // Écrire les données dans un fichier JSON
+        objectMapper.writeValue(new File("contacts.json"), contacts);
+        System.out.println("Exportation done in contacts.json");
     }
 }
+
 
 
