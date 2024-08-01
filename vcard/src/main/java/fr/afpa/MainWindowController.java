@@ -34,6 +34,9 @@ public class MainWindowController {
     private Button exportSelectionButton; // Assurez-vous que le fx:id correspond dans le fichier FXML
 
     @FXML
+    private Button handleNewContact;
+
+    @FXML
     private Button exportAllButton;
 
     @FXML
