@@ -88,6 +88,7 @@
                   </VBox>
                </children>
             </HBox>
+            <ChoiceBox layoutX="92.0" layoutY="64.0" prefHeight="45.0" prefWidth="106.0" />
          </children>
       </AnchorPane>
    </children>

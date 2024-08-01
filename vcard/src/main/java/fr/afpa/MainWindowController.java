@@ -28,6 +28,8 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.input.MouseEvent;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class MainWindowController {
 
     @FXML
@@ -41,6 +43,9 @@ public class MainWindowController {
 
     @FXML
     private Button changeButton;
+
+    @FXML
+    private Button handleNewContact;
 
     @FXML
     private TableView<Contact> contactTableView;
