@@ -12,7 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
-public class Contact implements Serializable{
+public class Contact implements Serializable {
 
     private StringProperty firstName;
     private StringProperty lastName;
@@ -26,7 +26,8 @@ public class Contact implements Serializable{
     private StringProperty mail;
     private StringProperty gitLinks;
 
-    public Contact(String firstName, String lastName, String surName, String gender, LocalDate birthDate,  String adress, String zipCode, String personalPhone, String professionalPhone, String mail, String gitLinks) {
+    public Contact(String firstName, String lastName, String surName, String gender, LocalDate birthDate, String adress,
+            String zipCode, String personalPhone, String professionalPhone, String mail, String gitLinks) {
         if (lastName == null || firstName == null || adress == null || personalPhone == null || mail == null) {
             throw new IllegalArgumentException("Required fields cannot be null");
         }
@@ -41,10 +42,10 @@ public class Contact implements Serializable{
         this.professionalPhone = new SimpleStringProperty(professionalPhone);
         this.mail = new SimpleStringProperty(mail);
         this.gitLinks = new SimpleStringProperty(gitLinks);
-        
+
     }
 
-    public StringProperty getFirstName() {  
+    public StringProperty getFirstName() {
         return firstName;
     }
 
@@ -60,11 +61,11 @@ public class Contact implements Serializable{
         this.lastName = lastName;
     }
 
-    public StringProperty getSurName() {
+    public StringProperty getSurname() {
         return surName;
     }
 
-    public void setSurName(StringProperty surName) {
+    public void setSurname(StringProperty surName) {
         this.surName = surName;
     }
 
@@ -84,11 +85,11 @@ public class Contact implements Serializable{
         this.gender = gender;
     }
 
-    public StringProperty getAdress() {
+    public StringProperty getAddress() {
         return adress;
     }
 
-    public void setAdress(StringProperty adress) {
+    public void setAddress(StringProperty adress) {
         this.adress = adress;
     }
 
@@ -121,15 +122,11 @@ public class Contact implements Serializable{
     }
 
     public void setMail(String mail) {
-        
+
         if (!Pattern.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", mail)) {
             throw new IllegalArgumentException("Wrong mail format.");
         }
         this.mail.set(mail);
-    }
-
-    public void setMail(StringProperty mail) {
-        this.mail = mail;
     }
 
     public StringProperty getGitLinks() {
@@ -138,11 +135,10 @@ public class Contact implements Serializable{
 
     public void setGitLinks(String gitLinks) {
 
-        if (gitLinks != null && !Pattern.matches("^(https?:\\/\\/)?(www\\.)?(linkedin)\\.com\\/[A-Za-z0-9_-]+\\/?$", gitLinks)) {
+        if (gitLinks != null
+                && !Pattern.matches("^(https?:\\/\\/)?(www\\.)?(linkedin)\\.com\\/[A-Za-z0-9_-]+\\/?$", gitLinks)) {
             throw new IllegalArgumentException("Wrong URL format.");
         }
         this.gitLinks.set(gitLinks);
     }
-    
-
 }

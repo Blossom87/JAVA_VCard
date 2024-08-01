@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.test">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.MainWindowController">
    <children>
       <AnchorPane prefHeight="768.0" prefWidth="310.0">
          <children>
@@ -31,7 +31,7 @@
                   <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="316.0" text="firstNameField" />
                   <TextField fx:id="textFieldSurnameField" prefHeight="45.0" prefWidth="316.0" text="surnameField" />
                   <ChoiceBox fx:id="genderBox" prefHeight="41.0" prefWidth="514.0" />
-                  <DatePicker fx:id="dateOfBirth" onAction="#getDate" prefHeight="42.0" prefWidth="516.0" />
+                  <DatePicker fx:id="dateOfBirthPicker" onAction="#getDate" prefHeight="42.0" prefWidth="516.0" />
                   <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="316.0" text="adressField" />
                   <TextField fx:id="textFieldZipCodeField" prefHeight="45.0" prefWidth="316.0" text="zipCodeField" />
                   <TextField fx:id="textFieldPersonalPhoneField" prefHeight="45.0" prefWidth="316.0" text="personalPhoneField" />
