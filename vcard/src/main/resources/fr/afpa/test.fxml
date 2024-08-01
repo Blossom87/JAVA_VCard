@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.test">
    <children>
       <AnchorPane prefHeight="768.0" prefWidth="310.0">
          <children>
-            <TableView layoutX="27.0" layoutY="29.0" prefHeight="710.0" prefWidth="264.0">
+            <TableView fx:id="tableView2C" layoutX="27.0" layoutY="29.0" onMouseClicked="#tableViewClicked" prefHeight="710.0" prefWidth="264.0">
               <columns>
-                <TableColumn prefWidth="263.0" text="C1" />
+                <TableColumn fx:id="tableCLName" minWidth="0.0" prefWidth="124.0" text="Last Name" />
+                  <TableColumn fx:id="tableCFName" prefWidth="139.0" text="First Name" />
               </columns>
             </TableView>
          </children>
@@ -27,17 +27,17 @@
          <children>
             <VBox layoutX="208.0" layoutY="142.0" prefHeight="506.0" prefWidth="509.0" spacing="5.0">
                <children>
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="lastNameField" />
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="firstNameField" />
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="surnameField" />
-                  <ChoiceBox prefHeight="41.0" prefWidth="514.0" />
-                  <DatePicker prefHeight="42.0" prefWidth="516.0" />
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="adressField" />
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="zipCodeField" />
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="personalPhoneField" />
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="professionalPhoneField" />
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="mailField" />
-                  <TextField prefHeight="45.0" prefWidth="316.0" text="gitField" />
+                  <TextField fx:id="textFieldLastName" prefHeight="45.0" prefWidth="316.0" text="lastNameField" />
+                  <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="316.0" text="firstNameField" />
+                  <TextField fx:id="textFieldSurnameField" prefHeight="45.0" prefWidth="316.0" text="surnameField" />
+                  <ChoiceBox fx:id="genderBox" prefHeight="41.0" prefWidth="514.0" />
+                  <DatePicker fx:id="dateOfBirth" onAction="#getDate" prefHeight="42.0" prefWidth="516.0" />
+                  <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="316.0" text="adressField" />
+                  <TextField fx:id="textFieldZipCodeField" prefHeight="45.0" prefWidth="316.0" text="zipCodeField" />
+                  <TextField fx:id="textFieldPersonalPhoneField" prefHeight="45.0" prefWidth="316.0" text="personalPhoneField" />
+                  <TextField fx:id="textFieldProfessionalPhoneField" prefHeight="45.0" prefWidth="316.0" text="professionalPhoneField" />
+                  <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="316.0" text="mailField" />
+                  <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="316.0" text="gitField" />
                </children>
             </VBox>
             <VBox layoutX="82.0" layoutY="142.0" prefHeight="506.0" prefWidth="126.0" spacing="5.0">
@@ -47,7 +47,7 @@
                   <Label prefHeight="45.0" prefWidth="301.0" text="Surname :" />
                   <Label prefHeight="45.0" prefWidth="280.0" text="Gender :" />
                   <Label prefHeight="45.0" prefWidth="260.0" text="Date of Birth :" />
-                  <Label prefHeight="45.0" prefWidth="253.0" text="Adress :" />
+                  <Label prefHeight="45.0" prefWidth="253.0" text="Address :" />
                   <Label prefHeight="45.0" prefWidth="253.0" text="Zip Code :" />
                   <Label prefHeight="45.0" prefWidth="253.0" text="Personal Phone :" />
                   <Label prefHeight="45.0" prefWidth="253.0" text="Professional Phone :" />
@@ -59,7 +59,7 @@
                <children>
                   <VBox prefHeight="45.0" prefWidth="112.0">
                      <children>
-                        <Button alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="45.0" prefWidth="106.0" text="Export Selection" />
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="106.0" text="Export Selection" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="112.0">
@@ -78,12 +78,12 @@
                <children>
                   <VBox prefHeight="45.0" prefWidth="112.0">
                      <children>
-                        <Button alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="45.0" prefWidth="114.0" text="Delete" />
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="114.0" text="Delete" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="112.0">
                      <children>
-                        <Button alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="69.0" prefWidth="130.0" text="Change" />
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="69.0" prefWidth="130.0" text="Change" />
                      </children>
                   </VBox>
                </children>
