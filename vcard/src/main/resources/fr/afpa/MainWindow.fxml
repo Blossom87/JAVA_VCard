@@ -59,17 +59,17 @@
                <children>
                   <VBox prefHeight="45.0" prefWidth="112.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="106.0" text="Export Selection" />
+                        <Button fx:id="exportSelectionButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleExportSelection" prefHeight="45.0" prefWidth="106.0" text="Export Selection" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="112.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="69.0" prefWidth="130.0" text="Export All" />
+                        <Button fx:id="exportAllButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleExportAll" prefHeight="69.0" prefWidth="130.0" text="Export All" />
                      </children>
                   </VBox>
                   <VBox prefHeight="55.0" prefWidth="112.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="69.0" prefWidth="130.0" text="New Contact" />
+                        <Button fx:id="newContact" alignment="CENTER" mnemonicParsing="false" onAction="#handleNewContact" prefHeight="69.0" prefWidth="130.0" text="New Contact" />
                      </children>
                   </VBox>
                </children>
@@ -83,7 +83,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="112.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="69.0" prefWidth="130.0" text="Change" />
+                        <Button fx:id="changeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleChangeContact" prefHeight="69.0" prefWidth="130.0" text="Change" />
                      </children>
                   </VBox>
                </children>
