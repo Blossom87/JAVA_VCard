@@ -201,7 +201,7 @@ public class MainWindowController {
             alert.setTitle("Delete Contact");
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to delete the selected contact?");
-            
+
             // Afficher l'alerte et attendre la réponse
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -226,10 +226,13 @@ public class MainWindowController {
 
         // Initialiser Jackson ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
+        try { // Écrire les données dans un fichier JSON
+            objectMapper.writeValue(new File("contacts.json"), contacts);
+            System.out.println("Exportation done in contacts.json");
 
-        // Écrire les données dans un fichier JSON
-        objectMapper.writeValue(new File("contacts.json"), contacts);
-        System.out.println("Exportation done in contacts.json");
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     @FXML
@@ -247,8 +250,13 @@ public class MainWindowController {
         ObjectMapper objectMapper = new ObjectMapper();
 
         // Écrire les données sélectionnées dans un fichier JSON
-        objectMapper.writeValue(new File("selected_contacts.json"), selectedContacts);
-        System.out.println("Exportation done in selected_contacts.json");
+        try {
+
+            objectMapper.writeValue(new File("selected_contacts.json"), selectedContacts);
+            System.out.println("Exportation done in selected_contacts.json");
+        } catch (Exception e) {
+
+        }
     }
 
     @FXML
@@ -267,7 +275,8 @@ public class MainWindowController {
         String git = textFieldGitField.getText();
 
         // Créer un nouvel objet Contact
-        Contact newContact = new Contact(lastName, firstName, surname, gender, dateOfBirth, address, zipCode, personalPhone, professionalPhone, email, git);
+        Contact newContact = new Contact(lastName, firstName, surname, gender, dateOfBirth, address, zipCode,
+                personalPhone, professionalPhone, email, git);
 
         // Ajouter le nouveau contact à la TableView
         tableView2C.getItems().add(newContact);
