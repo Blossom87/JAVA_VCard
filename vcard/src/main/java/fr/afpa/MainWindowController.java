@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +35,9 @@ public class MainWindowController {
     private Button exportSelectionButton; // Assurez-vous que le fx:id correspond dans le fichier FXML
 
     @FXML
+    private Button newContact;
+
+    @FXML
     private Button exportAllButton;
 
     @FXML
@@ -43,9 +45,6 @@ public class MainWindowController {
 
     @FXML
     private Button changeButton;
-
-    @FXML
-    private Button handleNewContact;
 
     @FXML
     private TableView<Contact> contactTableView;
@@ -155,7 +154,7 @@ public class MainWindowController {
     @FXML
     private void handleChangeContact() {
         // Récupérer le contact sélectionné
-        Contact selectedContact = contactTableView.getSelectionModel().getSelectedItem();
+        Contact selectedContact = tableView2C.getSelectionModel().getSelectedItem();
 
         if (selectedContact != null) {
             // Mettre à jour les informations du contact
@@ -172,7 +171,7 @@ public class MainWindowController {
             selectedContact.setGitLinks(textFieldGitField.getText());
 
             // Rafraîchir la TableView pour refléter les modifications
-            contactTableView.refresh();
+            tableView2C.refresh();
 
             // Afficher un message de confirmation
             Alert alert = new Alert(AlertType.INFORMATION);
@@ -193,7 +192,7 @@ public class MainWindowController {
     @FXML
     private void handleDeleteContact() {
         // Récupérer le contact sélectionné
-        Contact selectedContact = contactTableView.getSelectionModel().getSelectedItem();
+        Contact selectedContact = tableView2C.getSelectionModel().getSelectedItem();
 
         if (selectedContact != null) {
             // Confirmer la suppression avec l'utilisateur
@@ -206,7 +205,7 @@ public class MainWindowController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 // Supprimer le contact de la TableView
-                contactTableView.getItems().remove(selectedContact);
+                tableView2C.getItems().remove(selectedContact);
                 System.out.println("Contact deleted successfully.");
             }
         } else {
@@ -222,7 +221,7 @@ public class MainWindowController {
     @FXML
     private void handleExportAll() {
         // Récupérer les données de la TableView
-        List<Contact> contacts = contactTableView.getItems();
+        List<Contact> contacts = tableView2C.getItems();
 
         // Initialiser Jackson ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
@@ -235,7 +234,7 @@ public class MainWindowController {
     @FXML
     private void handleExportSelection() {
         // Récupérer les données sélectionnées de la TableView
-        List<Contact> selectedContacts = contactTableView.getSelectionModel().getSelectedItems();
+        List<Contact> selectedContacts = tableView2C.getSelectionModel().getSelectedItems();
 
         // Vérifier s'il y a des éléments sélectionnés
         if (selectedContacts.isEmpty()) {
@@ -270,7 +269,7 @@ public class MainWindowController {
         Contact newContact = new Contact(lastName, firstName, surname, gender, dateOfBirth, address, zipCode, personalPhone, professionalPhone, email, git);
 
         // Ajouter le nouveau contact à la TableView
-        contactTableView.getItems().add(newContact);
+        tableView2C.getItems().add(newContact);
 
         // Réinitialiser les champs du formulaire
         textFieldLastName.clear();
