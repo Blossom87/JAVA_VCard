@@ -133,12 +133,12 @@ public class Contact implements Serializable {
         return gitLinks;
     }
 
-    public void setGitLinks(String gitLinks) {
+    public void setGitLinks(String gitHub) {
 
-        if (gitLinks != null
-                && !Pattern.matches("^(https?:\\/\\/)?(www\\.)?(linkedin)\\.com\\/[A-Za-z0-9_-]+\\/?$", gitLinks)) {
-            throw new IllegalArgumentException("Wrong URL format.");
-        }
-        this.gitLinks.set(gitLinks);
+        // if (gitHub != null
+        //         && !Pattern.matches("^(https?:\\/\\/)?(www\\.)?(github)\\.com\\/[A-Za-z0-9_-]+\\/?$", gitHub)) {
+        //     throw new IllegalArgumentException("Wrong URL format.");
+        // }
+        this.gitLinks.set(gitHub);
     }
 }
