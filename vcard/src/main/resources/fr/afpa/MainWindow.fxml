@@ -15,29 +15,30 @@
    <children>
       <AnchorPane prefHeight="768.0" prefWidth="310.0">
          <children>
-            <TableView fx:id="tableView2C" layoutX="27.0" layoutY="29.0" onMouseClicked="#tableViewClicked" prefHeight="710.0" prefWidth="264.0">
+            <TableView fx:id="tableView2C" layoutX="27.0" layoutY="76.0" onMouseClicked="#tableViewClicked" prefHeight="663.0" prefWidth="264.0">
               <columns>
                 <TableColumn fx:id="tableCLName" minWidth="0.0" prefWidth="124.0" text="Last Name" />
                   <TableColumn fx:id="tableCFName" prefWidth="139.0" text="First Name" />
               </columns>
             </TableView>
+            <TextField layoutX="27.0" layoutY="32.0" prefHeight="38.0" prefWidth="264.0" text="searchField" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="768.0" prefWidth="759.0">
          <children>
             <VBox layoutX="208.0" layoutY="142.0" prefHeight="506.0" prefWidth="509.0" spacing="5.0">
                <children>
-                  <TextField fx:id="textFieldLastName" prefHeight="45.0" prefWidth="316.0" promptText="Enter your last name." />
-                  <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="316.0" promptText="Enter your first name." />
-                  <TextField fx:id="textFieldSurnameField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your surname." />
+                  <TextField fx:id="textFieldLastName" prefHeight="45.0" prefWidth="316.0" text="lastNameField" />
+                  <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="316.0" text="firstNameField" />
+                  <TextField fx:id="textFieldSurnameField" prefHeight="45.0" prefWidth="316.0" text="surnameField" />
                   <ChoiceBox fx:id="genderBox" prefHeight="41.0" prefWidth="514.0" />
-                  <DatePicker fx:id="dateOfBirthPicker" onAction="#getDate" prefHeight="42.0" prefWidth="516.0" promptText="Select your Birth date." />
-                  <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your address." />
-                  <TextField fx:id="textFieldZipCodeField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your ZIP Code." />
-                  <TextField fx:id="textFieldPersonalPhoneField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your phone number." />
-                  <TextField fx:id="textFieldProfessionalPhoneField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your professional phone number." />
-                  <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="316.0" promptText="Enter your mail address." />
-                  <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your git link profil." />
+                  <DatePicker fx:id="dateOfBirthPicker" onAction="#getDate" prefHeight="42.0" prefWidth="516.0" />
+                  <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="316.0" text="adressField" />
+                  <TextField fx:id="textFieldZipCodeField" prefHeight="45.0" prefWidth="316.0" text="zipCodeField" />
+                  <TextField fx:id="textFieldPersonalPhoneField" prefHeight="45.0" prefWidth="316.0" text="personalPhoneField" />
+                  <TextField fx:id="textFieldProfessionalPhoneField" prefHeight="45.0" prefWidth="316.0" text="professionalPhoneField" />
+                  <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="316.0" text="mailField" />
+                  <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="316.0" text="gitField" />
                </children>
             </VBox>
             <VBox layoutX="82.0" layoutY="142.0" prefHeight="506.0" prefWidth="126.0" spacing="5.0">
@@ -88,7 +89,7 @@
                   </VBox>
                </children>
             </HBox>
-            <ChoiceBox layoutX="92.0" layoutY="64.0" prefHeight="45.0" prefWidth="106.0" />
+            <ChoiceBox layoutX="82.0" layoutY="64.0" prefHeight="45.0" prefWidth="106.0" />
          </children>
       </AnchorPane>
    </children>
