@@ -137,10 +137,9 @@ public class Contact implements Serializable {
 
     public void setGitLinks(String gitHub) {
 
-        // if (gitHub != null
-        //         && !Pattern.matches("^(https?:\\/\\/)?(www\\.)?(github)\\.com\\/[A-Za-z0-9_-]+\\/?$", gitHub)) {
-        //     throw new IllegalArgumentException("Wrong URL format.");
-        // }
+        if (!Pattern.matches("^https?://github.com/([A-Za-z0-9._-]+)$", gitHub)) {
+            throw new IllegalArgumentException("Wrong link format.");
+        }
         this.gitLinks.set(gitHub);
     }
 }

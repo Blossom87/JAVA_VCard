@@ -15,12 +15,13 @@
    <children>
       <AnchorPane prefHeight="768.0" prefWidth="310.0">
          <children>
-            <TableView fx:id="tableView2C" layoutX="27.0" layoutY="29.0" onMouseClicked="#tableViewClicked" prefHeight="710.0" prefWidth="264.0">
+            <TableView fx:id="tableView2C" layoutX="27.0" layoutY="76.0" onMouseClicked="#tableViewClicked" prefHeight="663.0" prefWidth="264.0">
               <columns>
                 <TableColumn fx:id="tableCLName" minWidth="0.0" prefWidth="124.0" text="Last Name" />
                   <TableColumn fx:id="tableCFName" prefWidth="139.0" text="First Name" />
               </columns>
             </TableView>
+            <TextField layoutX="27.0" layoutY="32.0" prefHeight="38.0" prefWidth="264.0" text="searchField" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="768.0" prefWidth="759.0">
@@ -89,8 +90,12 @@
                   </VBox>
                </children>
             </HBox>
+<<<<<<< HEAD
             <ChoiceBox layoutX="50.0" layoutY="87.0" prefHeight="45.0" prefWidth="106.0" />
             <TextField layoutX="29.0" layoutY="39.0" text="Who ?" />
+=======
+            <ChoiceBox layoutX="82.0" layoutY="64.0" prefHeight="45.0" prefWidth="106.0" />
+>>>>>>> 6c59385e298d6a63ddfd6c5b1b182aa0af66aaa6
          </children>
       </AnchorPane>
    </children>
