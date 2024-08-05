@@ -122,8 +122,9 @@ public class MainWindowController {
         tableView2C.setItems(contacts);
         tableCLName.setCellValueFactory(cellData -> cellData.getValue().getLastName());
         tableCFName.setCellValueFactory(cellData -> cellData.getValue().getFirstName());
-
         genderBox.getItems().addAll(genders);
+        deleteButton.setVisible(false);
+        changeButton.setVisible(false);
     }
 
     @FXML
@@ -137,6 +138,8 @@ public class MainWindowController {
         // getSelectedItem (methode de SelectionModel) recupere un objet de la classe
         // contact selectionné
         Contact selectedContact = tableView2C.getSelectionModel().getSelectedItem();
+        deleteButton.setVisible(true);
+        changeButton.setVisible(true);
         textFieldFirstName.setText(selectedContact.getFirstName().getValue());
         textFieldLastName.setText(selectedContact.getLastName().getValue());
         textFieldSurnameField.setText(selectedContact.getSurname().getValue());
@@ -188,6 +191,9 @@ public class MainWindowController {
             alert.setContentText("Veuillez sélectionner un contact à modifier.");
             alert.showAndWait();
         }
+
+        changeButton.setVisible(false);
+        deleteButton.setVisible(false);
     }
 
     @FXML
@@ -277,6 +283,17 @@ public class MainWindowController {
         // Créer un nouvel objet Contact
         Contact newContact = new Contact(lastName, firstName, surname, gender, dateOfBirth, address, zipCode,
                 personalPhone, professionalPhone, email, git);
+        // Vérification de l'instanciation des Fields Texts.
+        if (newContact.getLastName().getValue().isEmpty() || 
+        newContact.getFirstName().getValue().isEmpty() || 
+        newContact.getGender().getValue().isEmpty() || 
+        newContact.getAddress().getValue().isEmpty() || 
+        newContact.getPersonalPhone().getValue().isEmpty() || 
+        newContact.getMail().getValue().isEmpty() || 
+        newContact.getZipCode().getValue().isEmpty()) 
+        {
+           throw new IllegalArgumentException("Contact format error.");
+        };
 
         // Ajouter le nouveau contact à la TableView
         tableView2C.getItems().add(newContact);
