@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -129,7 +131,7 @@ public class Contact implements Serializable {
         this.mail.set(mail);
     }
 
-    public StringProperty getGitLinks() {
+    public JsonNode getGitLinks() {
         return gitLinks;
     }
 

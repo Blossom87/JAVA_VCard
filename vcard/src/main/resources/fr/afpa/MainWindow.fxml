@@ -38,6 +38,7 @@
                   <TextField fx:id="textFieldProfessionalPhoneField" prefHeight="45.0" prefWidth="316.0" text="professionalPhoneField" />
                   <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="316.0" text="mailField" />
                   <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="316.0" text="gitField" />
+                  <TextField />
                </children>
             </VBox>
             <VBox layoutX="82.0" layoutY="142.0" prefHeight="506.0" prefWidth="126.0" spacing="5.0">
@@ -88,7 +89,8 @@
                   </VBox>
                </children>
             </HBox>
-            <ChoiceBox layoutX="92.0" layoutY="64.0" prefHeight="45.0" prefWidth="106.0" />
+            <ChoiceBox layoutX="50.0" layoutY="87.0" prefHeight="45.0" prefWidth="106.0" />
+            <TextField layoutX="29.0" layoutY="39.0" text="Who ?" />
          </children>
       </AnchorPane>
    </children>
