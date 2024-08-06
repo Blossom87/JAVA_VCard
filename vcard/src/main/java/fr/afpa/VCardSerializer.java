@@ -1,8 +1,7 @@
 package fr.afpa;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 public class VCardSerializer {
@@ -12,7 +11,7 @@ public class VCardSerializer {
      * 
      * @param contact
      */
-    public void serialize(Contact contact) {
+    public String serialize(Contact contact) {
 
         /// 1 construire la chaîne de caractères correspondant au contenu vCard
         String vCardContent = "BEGIN:VCARD\nVERSION:4.0";
@@ -25,19 +24,51 @@ public class VCardSerializer {
         vCardContent = vCardContent + "FN:" + contact.getFirstName().get() + " " + contact.getLastName().get() + "\n";
         vCardContent = vCardContent + "ADR:" + contact.getAddress().get() + ";" + contact.getZipCode().get() + "\n";
         vCardContent = vCardContent + "EMAIL:" + contact.getMail().get() + "\n";
-        vCardContent = vCardContent + "TEL:" + contact.getPersonalPhone().get() + ";"
-                + contact.getProfessionalPhone().get() + "\n";
+        vCardContent = vCardContent + "TEL:" + contact.getPersonalPhone().get() + ";" + contact.getProfessionalPhone().get() + "\n";
         vCardContent = vCardContent + "ORG:" + contact.getGitLinks().get() + "\n";
-        vCardContent = vCardContent + "END:VCARD";
+        vCardContent = vCardContent + "END:VCARD" + "\n";
+        vCardContent = vCardContent + "\n";
+
+        return vCardContent;
+    }
+
+    public void exportMultipleContacts(List<Contact> contacts) {
+        String vCardContent = "";
+        for (Contact contact : contacts) {
+            vCardContent += this.serialize(contact);
+        }
+
+         // 2 écrire cette chaîne dans un fichier
+         File file = new File("contacts"+LocalDate.now().toString()+".vcard");
+         FileWriter fileWriter = null;
+         try {
+             // instanciation du FileWriter
+             fileWriter = new FileWriter(file);
+ 
+             // éciture de la chaîne de caractères
+             fileWriter.write(vCardContent);
+         } catch (IOException e) {
+             e.printStackTrace();
+         } finally {
+             try {
+                 fileWriter.close();
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+         }
+    }
+
+    public void exportSingleContact(Contact contact) {
+        String vCardContent =this.serialize(contact);
 
         // 2 écrire cette chaîne dans un fichier
-        File file = new File("contact.vcard");
+        File file = new File(contact.getFirstName().get()+contact.getLastName().get()+".vcard");
         FileWriter fileWriter = null;
         try {
             // instanciation du FileWriter
             fileWriter = new FileWriter(file);
 
-            // éciture de la chaîne de caractères
+            // écriture de la chaîne de caractères
             fileWriter.write(vCardContent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,9 +79,5 @@ public class VCardSerializer {
                 e.printStackTrace();
             }
         }
-    }
-
-    public void serializes(List<Contact> contacts) {
-        
     }
 }
