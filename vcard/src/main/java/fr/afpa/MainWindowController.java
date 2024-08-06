@@ -4,6 +4,7 @@ import java.io.DataOutput;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -28,6 +29,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.input.MouseEvent;
+import javafx.collections.transformation.FilteredList;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -139,9 +142,43 @@ public class MainWindowController implements java.io.Serializable {
         deleteButton.setVisible(false);
         changeButton.setVisible(false);
     }
-
     @FXML
-    public void tableViewClicked(MouseEvent clickEvent) {
+private void initialise() {
+    // Ajouter les éléments initiaux à la TableView
+    tableView2C.setItems(contacts);
+    tableCLName.setCellValueFactory(cellData -> cellData.getValue().getLastName());
+    tableCFName.setCellValueFactory(cellData -> cellData.getValue().getFirstName());
+    genderBox.getItems().addAll(genders);
+
+    // Initialisation de la FilteredList
+    FilteredList<Contact> filteredData = new FilteredList<>(contacts, p -> true);
+
+    // Ajout de l'écouteur de changement sur le champ de recherche
+    searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        filteredData.setPredicate(contact -> {
+            // Si le texte du champ de recherche est vide, afficher tous les contacts
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+
+            // Comparaison du nom et du prénom de chaque contact avec le texte de recherche
+            String lowerCaseFilter = newValue.toLowerCase();
+            if (contact.getLastName().get().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Correspondance avec le nom
+            } else if (contact.getFirstName().get().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Correspondance avec le prénom
+            }
+            return false; // Pas de correspondance
+        });
+    });
+
+    // Liaison de la FilteredList avec la TableView
+    tableView2C.setItems(filteredData);
+
+    // Configuration des autres composants
+    deleteButton.setVisible(false);
+    changeButton.setVisible(false);
+}
 
         // Methode tableViewClicked -> Declenchement sur un clique utilisateur dans le
         // tableau(tableview).
@@ -150,7 +187,7 @@ public class MainWindowController implements java.io.Serializable {
         // ou les lignes selectionnées.
         // getSelectedItem (methode de SelectionModel) recupere un objet de la classe
         // contact selectionné
-        Contact selectedContact = tableView2C.getSelectionModel().getSelectedItem();
+        Contact selectedContact = tableView2C.getSelectionModel().getSelectedItem();{
         deleteButton.setVisible(true);
         changeButton.setVisible(true);
         textFieldFirstName.setText(selectedContact.getFirstName().getValue());
@@ -159,7 +196,6 @@ public class MainWindowController implements java.io.Serializable {
         dateOfBirthPicker.setValue(selectedContact.getBirthDate());
         if (selectedContact.getGender().getValue().equals("Man")) {
             genderBox.getSelectionModel().select(0);
-        }
         textFieldAdressField.setText(selectedContact.getAddress().getValue());
         textFieldZipCodeField.setText(String.valueOf(selectedContact.getZipCode().getValue()));
         textFieldPersonalPhoneField.setText(String.valueOf(selectedContact.getPersonalPhone().getValue()));
@@ -167,6 +203,8 @@ public class MainWindowController implements java.io.Serializable {
         textFieldMail.setText(String.valueOf(selectedContact.getMail().getValue()));
         textFieldGitField.setText(String.valueOf(selectedContact.getGitLinks().getValue()));
     }
+}
+    
 
     @FXML
     private void handleChangeContact() {

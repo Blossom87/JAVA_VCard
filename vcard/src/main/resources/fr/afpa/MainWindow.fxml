@@ -25,6 +25,8 @@
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="768.0" prefWidth="759.0">
+         <TextField fx:id="searchField" onKeyReleased="#handleSearch" />
+
          <children>
             <VBox layoutX="208.0" layoutY="142.0" prefHeight="506.0" prefWidth="509.0" spacing="5.0">
                <children>
