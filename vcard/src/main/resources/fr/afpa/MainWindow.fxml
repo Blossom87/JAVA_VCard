@@ -21,25 +21,24 @@
                   <TableColumn fx:id="tableCFName" prefWidth="139.0" text="First Name" />
               </columns>
             </TableView>
-            <TextField layoutX="27.0" layoutY="32.0" prefHeight="38.0" prefWidth="264.0" text="searchField" />
+            <TextField fx:id="searchField" layoutX="27.0" layoutY="32.0" prefHeight="35.0" prefWidth="264.0" promptText="Enter a contact." />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="768.0" prefWidth="759.0">
          <children>
             <VBox layoutX="208.0" layoutY="142.0" prefHeight="506.0" prefWidth="509.0" spacing="5.0">
                <children>
-                  <TextField fx:id="textFieldLastName" prefHeight="45.0" prefWidth="316.0" text="lastNameField" />
-                  <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="316.0" text="firstNameField" />
-                  <TextField fx:id="textFieldSurnameField" prefHeight="45.0" prefWidth="316.0" text="surnameField" />
+                  <TextField fx:id="textFieldLastName" prefHeight="45.0" prefWidth="316.0" promptText="Enter your last name." />
+                  <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="316.0" promptText="Enter your first name." />
+                  <TextField fx:id="textFieldSurnameField" prefHeight="45.0" prefWidth="316.0" promptText="(OPTIONAL) Enter your surname." />
                   <ChoiceBox fx:id="genderBox" prefHeight="41.0" prefWidth="514.0" />
-                  <DatePicker fx:id="dateOfBirthPicker" onAction="#getDate" prefHeight="42.0" prefWidth="516.0" />
-                  <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="316.0" text="adressField" />
-                  <TextField fx:id="textFieldZipCodeField" prefHeight="45.0" prefWidth="316.0" text="zipCodeField" />
-                  <TextField fx:id="textFieldPersonalPhoneField" prefHeight="45.0" prefWidth="316.0" text="personalPhoneField" />
-                  <TextField fx:id="textFieldProfessionalPhoneField" prefHeight="45.0" prefWidth="316.0" text="professionalPhoneField" />
-                  <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="316.0" text="mailField" />
-                  <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="316.0" text="gitField" />
-                  <TextField />
+                  <DatePicker fx:id="dateOfBirthPicker" onAction="#getDate" prefHeight="42.0" prefWidth="516.0" promptText="DD/MM/YYYY" />
+                  <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your address." />
+                  <TextField fx:id="textFieldZipCodeField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your ZIP code." />
+                  <TextField fx:id="textFieldPersonalPhoneField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your phone number." />
+                  <TextField fx:id="textFieldProfessionalPhoneField" prefHeight="45.0" prefWidth="316.0" promptText="(OPTIONAL) Enter your professional phone number." />
+                  <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="316.0" promptText="Enter your mail." />
+                  <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="316.0" promptText="(OPTIONAL) Enter your Git link." />
                </children>
             </VBox>
             <VBox layoutX="82.0" layoutY="142.0" prefHeight="506.0" prefWidth="126.0" spacing="5.0">
@@ -90,12 +89,7 @@
                   </VBox>
                </children>
             </HBox>
-<<<<<<< HEAD
-            <ChoiceBox layoutX="50.0" layoutY="87.0" prefHeight="45.0" prefWidth="106.0" />
-            <TextField layoutX="29.0" layoutY="39.0" text="Who ?" />
-=======
-            <ChoiceBox layoutX="82.0" layoutY="64.0" prefHeight="45.0" prefWidth="106.0" />
->>>>>>> 6c59385e298d6a63ddfd6c5b1b182aa0af66aaa6
+            <ChoiceBox fx:id="exportTypesBox" layoutX="82.0" layoutY="64.0" prefHeight="45.0" prefWidth="106.0" />
          </children>
       </AnchorPane>
    </children>

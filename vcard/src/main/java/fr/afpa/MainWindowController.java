@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,11 +28,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.input.MouseEvent;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class MainWindowController {
+public class MainWindowController implements java.io.Serializable {
 
     @FXML
     private Button exportSelectionButton; // Assurez-vous que le fx:id correspond dans le fichier FXML
@@ -100,6 +98,9 @@ public class MainWindowController {
     private TextField textFieldGitField;
 
     @FXML
+    private TextField searchField;
+
+    @FXML
     private TableView<Contact> tableView2C;
 
     @FXML
@@ -112,6 +113,9 @@ public class MainWindowController {
     private ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
     @FXML
+    private ChoiceBox<String> exportTypesBox;
+
+    @FXML
     private Label labelErrorMSG;
 
     @FXML
@@ -121,6 +125,12 @@ public class MainWindowController {
 
         contacts.add(new Contact("Gaston", "Lagaffe", "Lagaf", "Man", birthDate, "4 Rue de la Gaffe", "11111",
                 "0555055505", "0666066606", "mail", "test"));
+
+        ObservableList<String> exportTypes = FXCollections.observableArrayList();
+        exportTypes.add("vCard");
+        exportTypes.add("JSON");
+        exportTypesBox.setItems(exportTypes);
+        exportTypesBox.getSelectionModel().select(0);
 
         tableView2C.setItems(contacts);
         tableCLName.setCellValueFactory(cellData -> cellData.getValue().getLastName());
@@ -227,81 +237,99 @@ public class MainWindowController {
             alert.showAndWait();
         }
     }
-@FXML
-private void handleExportAll() {
-    // Récupérer les données de la TableView
-    List<Contact> contacts = tableView2C.getItems();
 
-    // Initialiser Jackson ObjectMapper
-    ObjectMapper objectMapper = new ObjectMapper();
-    try {
-        // Transformer chaque contact en structure JSON
-        List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
-            ObjectNode jsonContact = objectMapper.createObjectNode();
-            jsonContact.put("firstName", contact.getFirstName().get()); // Utiliser .get() pour obtenir la valeur String
-            jsonContact.put("lastName", contact.getLastName().get());
-            jsonContact.put("surName", contact.getSurname().get());
-            jsonContact.put("gender", contact.getGender().get());
-            jsonContact.put("birthDate", contact.getBirthDate().toString()); // Assurez-vous que c'est une chaîne
-            jsonContact.put("address", contact.getAddress().get());
-            jsonContact.put("zipcode", contact.getZipCode().get());
-            jsonContact.put("personalPhone", contact.getPersonalPhone().get());
-            jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
-            jsonContact.put("mail", contact.getMail().get());
-            jsonContact.put("gitLink", contact.getGitLinks().get());
-            return jsonContact;
-        }).collect(Collectors.toList());
+    @FXML
+    private void handleExportAll() {
+        // Récupérer les données de la TableView
+        List<Contact> contacts = tableView2C.getItems();
 
-        // Écrire les données dans un fichier JSON
-        objectMapper.writeValue(new File("contacts.json"), jsonContacts);
-        System.out.println("Exportation done in contacts.json");
+        // Initialiser Jackson ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // Transformer chaque contact en structure JSON
+            List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
+                ObjectNode jsonContact = objectMapper.createObjectNode();
+                jsonContact.put("firstName", contact.getFirstName().get()); // Utiliser .get() pour obtenir la valeur
+                                                                            // String
+                jsonContact.put("lastName", contact.getLastName().get());
+                jsonContact.put("surName", contact.getSurname().get());
+                jsonContact.put("gender", contact.getGender().get());
+                jsonContact.put("birthDate", contact.getBirthDate().toString()); // Assurez-vous que c'est une chaîne
+                jsonContact.put("address", contact.getAddress().get());
+                jsonContact.put("zipcode", contact.getZipCode().get());
+                jsonContact.put("personalPhone", contact.getPersonalPhone().get());
+                jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
+                jsonContact.put("mail", contact.getMail().get());
+                jsonContact.put("gitLink", contact.getGitLinks().get());
+                return jsonContact;
+            }).collect(Collectors.toList());
 
-    } catch (Exception e) {
-        e.printStackTrace();
-        System.out.println("Error occurred: " + e.getMessage());
-    }
-}
+            // Écrire les données dans un fichier JSON
+            objectMapper.writeValue(new File("contacts.json"), jsonContacts);
+            System.out.println("Exportation done in contacts.json");
 
-@FXML
-private void handleExportSelection() {
-    // Récupérer les données sélectionnées de la TableView
-    List<Contact> selectedContacts = tableView2C.getSelectionModel().getSelectedItems();
-
-    // Vérifier s'il y a des éléments sélectionnés
-    if (selectedContacts.isEmpty()) {
-        System.out.println("no contacts selected.");
-        return; // Sortir de la méthode si aucune sélection n'est faite
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error occurred: " + e.getMessage());
+        }
     }
 
-    // Initialiser Jackson ObjectMapper
-    ObjectMapper objectMapper = new ObjectMapper();
+    /**
+     * Méthode qui se déclenche lors du clic pour l'export d'une sélection unique ou multiple (sélection avec Ctrl + Clic par exemple)
+     */
+    @FXML
+    private void handleExportSelection() {
+        // Récupérer les données sélectionnées de la TableView
+        List<Contact> selectedContacts = tableView2C.getSelectionModel().getSelectedItems();
 
-    try {
-        // Transformer chaque contact sélectionné en structure JSON
-        List<ObjectNode> jsonContacts = selectedContacts.stream().map(contact -> {
-            ObjectNode jsonContact = objectMapper.createObjectNode();
-            jsonContact.put("firstName", contact.getFirstName().get());
-            jsonContact.put("lastName", contact.getLastName().get());
-            jsonContact.put("surName", contact.getSurname().get());
-            jsonContact.put("gender", contact.getGender().get());
-            jsonContact.put("birthDate", contact.getBirthDate().toString());
-            jsonContact.put("address", contact.getAddress().get());
-            jsonContact.put("zipcode", contact.getZipCode().get());
-            jsonContact.put("personalPhone", contact.getPersonalPhone().get());
-            jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
-            jsonContact.put("mail", contact.getMail().get());
-            jsonContact.put("gitLink", contact.getGitLinks().get());
-            return jsonContact;
-        }).collect(Collectors.toList());
+        // Vérifier s'il y a des éléments sélectionnés
+        if (selectedContacts.isEmpty()) {
+            System.out.println("no contacts selected.");
+            return; // Sortir de la méthode si aucune sélection n'est faite
+        }
 
-        // Écrire les données sélectionnées dans un fichier JSON
-        objectMapper.writeValue(new File("selected_contacts.json"), jsonContacts);
-        System.out.println("Exportation done in selected_contacts.json");
-    } catch (Exception e) {
-        e.printStackTrace();
-        System.out.println("Error occurred: " + e.getMessage());
+        // récupération de la valeur sélectionnée dans la ChoiceBox
+        String selectedExportType = exportTypesBox.getSelectionModel().getSelectedItem();
+
+        // 2 cas possible : soit vCard, soit JSon
+        if (selectedExportType.equals("vCard")) {
+
+            ////////// TODO implémenter la solution pour vCard
+            /// ????????????????
+            
+        } else { // cas du JSON
+
+             // Initialiser Jackson ObjectMapper
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            try {
+                // Transformer chaque contact sélectionné en structure JSON
+                List<ObjectNode> jsonContacts = selectedContacts.stream().map(contact -> {
+                    ObjectNode jsonContact = objectMapper.createObjectNode();
+                    jsonContact.put("firstName", contact.getFirstName().get());
+                    jsonContact.put("lastName", contact.getLastName().get());
+                    jsonContact.put("surName", contact.getSurname().get());
+                    jsonContact.put("gender", contact.getGender().get());
+                    jsonContact.put("birthDate", contact.getBirthDate().toString());
+                    jsonContact.put("address", contact.getAddress().get());
+                    jsonContact.put("zipcode", contact.getZipCode().get());
+                    jsonContact.put("personalPhone", contact.getPersonalPhone().get());
+                    jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
+                    jsonContact.put("mail", contact.getMail().get());
+                    jsonContact.put("gitLink", contact.getGitLinks().get());
+                    return jsonContact;
+                }).collect(Collectors.toList());
+
+                // Écrire les données sélectionnées dans un fichier JSON
+                objectMapper.writeValue(new File("selected_contacts.json"), jsonContacts);
+                System.out.println("Exportation done in selected_contacts.json");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error occurred: " + e.getMessage());
+            }
+        }
+       
     }
-}
 
     @FXML
     private void handleNewContact() {
@@ -322,16 +350,16 @@ private void handleExportSelection() {
         Contact newContact = new Contact(lastName, firstName, surname, gender, dateOfBirth, address, zipCode,
                 personalPhone, professionalPhone, email, git);
         // Vérification de l'instanciation des Fields Texts.
-        if (newContact.getLastName().getValue().isEmpty() || 
-        newContact.getFirstName().getValue().isEmpty() || 
-        newContact.getGender().getValue().isEmpty() || 
-        newContact.getAddress().getValue().isEmpty() || 
-        newContact.getPersonalPhone().getValue().isEmpty() || 
-        newContact.getMail().getValue().isEmpty() || 
-        newContact.getZipCode().getValue().isEmpty()) 
-        {
-           throw new IllegalArgumentException("Contact format error.");
-        };
+        if (newContact.getLastName().getValue().isEmpty() ||
+                newContact.getFirstName().getValue().isEmpty() ||
+                newContact.getGender().getValue().isEmpty() ||
+                newContact.getAddress().getValue().isEmpty() ||
+                newContact.getPersonalPhone().getValue().isEmpty() ||
+                newContact.getMail().getValue().isEmpty() ||
+                newContact.getZipCode().getValue().isEmpty()) {
+            throw new IllegalArgumentException("Contact format error.");
+        }
+        ;
 
         // Ajouter le nouveau contact à la TableView
         tableView2C.getItems().add(newContact);

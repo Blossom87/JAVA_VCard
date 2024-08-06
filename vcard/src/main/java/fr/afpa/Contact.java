@@ -131,7 +131,7 @@ public class Contact implements Serializable {
         this.mail.set(mail);
     }
 
-    public JsonNode getGitLinks() {
+    public StringProperty getGitLinks() {
         return gitLinks;
     }
 
