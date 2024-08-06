@@ -49,4 +49,8 @@ public class VCardSerializer {
             }
         }
     }
+
+    public void serializes(List<Contact> contacts) {
+        
+    }
 }

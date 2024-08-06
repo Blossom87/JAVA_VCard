@@ -5,6 +5,5 @@ public class JSonSerializer {
 
     public void serialize(Contact contact) {
         
-        
     }
 }

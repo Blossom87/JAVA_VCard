@@ -120,8 +120,10 @@ public class MainWindowController {
 
         LocalDate birthDate = LocalDate.of(2020, 1, 8);
 
-        // contacts.add(new Contact("Gaston", "Lagaffe", "Lagaf", "Man", birthDate, "4 Rue de la Gaffe", "11111",
-        //         "0555055505", "0666066606", "mail@gmail.com", "https://github.com/Blossom87"));
+        // contacts.add(new Contact("Gaston", "Lagaffe", "Lagaf", "Man", birthDate, "4
+        // Rue de la Gaffe", "11111",
+        // "0555055505", "0666066606", "mail@gmail.com",
+        // "https://github.com/Blossom87"));
 
         Deserializer deserializer = new Deserializer();
         List<Contact> deserializedContacts = deserializer.loadList();
@@ -254,50 +256,55 @@ public class MainWindowController {
     private void handleExportAll() {
         // Récupérer les données de la TableView
         List<Contact> contacts = tableView2C.getItems();
+        String selectedExportType = exportTypesBox.getSelectionModel().getSelectedItem();
 
         if (contacts.isEmpty()) {
             System.out.println("no contacts available.");
             return; // Sortir de la méthode si aucune sélection n'est faite
         }
 
-        String selectedExportType = exportTypesBox.getSelectionModel().getSelectedItem();
+        for (int i = 0; i < contacts.size(); i++) {
 
-        
+            contacts.get(i);
 
-        if (selectedExportType.equals("vCard")) {
+            if (selectedExportType.equals("vCard")) {
 
-            VCardSerializer serializer = new VCardSerializer();
-            serializer.serialize(contacts.get(0));
-        }
+                VCardSerializer serializer = new VCardSerializer();
+                serializer.serialize(contacts.get(i));
+            } else {
 
-        // Initialiser Jackson ObjectMapper
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            // Transformer chaque contact en structure JSON
-            List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
-                ObjectNode jsonContact = objectMapper.createObjectNode();
-                jsonContact.put("firstName", contact.getFirstName().get()); // Utiliser .get() pour obtenir la valeur
-                                                                            // String
-                jsonContact.put("lastName", contact.getLastName().get());
-                jsonContact.put("surName", contact.getSurname().get());
-                jsonContact.put("gender", contact.getGender().get());
-                jsonContact.put("birthDate", contact.getBirthDate().toString()); // Assurez-vous que c'est une chaîne
-                jsonContact.put("address", contact.getAddress().get());
-                jsonContact.put("zipcode", contact.getZipCode().get());
-                jsonContact.put("personalPhone", contact.getPersonalPhone().get());
-                jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
-                jsonContact.put("mail", contact.getMail().get());
-                jsonContact.put("gitLink", contact.getGitLinks().get());
-                return jsonContact;
-            }).collect(Collectors.toList());
+                // Initialiser Jackson ObjectMapper
+                ObjectMapper objectMapper = new ObjectMapper();
+                try {
+                    // Transformer chaque contact en structure JSON
+                    List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
+                        ObjectNode jsonContact = objectMapper.createObjectNode();
+                        jsonContact.put("firstName", contact.getFirstName().get()); // Utiliser .get() pour obtenir la
+                                                                                    // valeur
+                                                                                    // String
+                        jsonContact.put("lastName", contact.getLastName().get());
+                        jsonContact.put("surName", contact.getSurname().get());
+                        jsonContact.put("gender", contact.getGender().get());
+                        jsonContact.put("birthDate", contact.getBirthDate().toString()); // Assurez-vous que c'est une
+                                                                                         // chaîne
+                        jsonContact.put("address", contact.getAddress().get());
+                        jsonContact.put("zipcode", contact.getZipCode().get());
+                        jsonContact.put("personalPhone", contact.getPersonalPhone().get());
+                        jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
+                        jsonContact.put("mail", contact.getMail().get());
+                        jsonContact.put("gitLink", contact.getGitLinks().get());
+                        return jsonContact;
+                    }).collect(Collectors.toList());
 
-            // Écrire les données dans un fichier JSON
-            objectMapper.writeValue(new File("contacts.json"), jsonContacts);
-            System.out.println("Exportation done in contacts.json");
+                    // Écrire les données dans un fichier JSON
+                    objectMapper.writeValue(new File("contacts.json"), jsonContacts);
+                    System.out.println("Exportation done in contacts.json");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error occurred: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Error occurred: " + e.getMessage());
+                }
+            }
         }
     }
 
