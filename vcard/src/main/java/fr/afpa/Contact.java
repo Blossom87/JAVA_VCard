@@ -1,18 +1,14 @@
 package fr.afpa;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 
 public class Contact implements Serializable {
 
@@ -44,7 +40,6 @@ public class Contact implements Serializable {
         this.professionalPhone = new SimpleStringProperty(professionalPhone);
         this.mail = new SimpleStringProperty(mail);
         this.gitLinks = new SimpleStringProperty(gitLinks);
-
     }
 
     public StringProperty getFirstName() {
@@ -127,8 +122,9 @@ public class Contact implements Serializable {
 
         if (!Pattern.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", mail)) {
             throw new IllegalArgumentException("Wrong mail format.");
+        } else {
+            this.mail.set(mail);
         }
-        this.mail.set(mail);
     }
 
     public StringProperty getGitLinks() {
@@ -137,9 +133,51 @@ public class Contact implements Serializable {
 
     public void setGitLinks(String gitHub) {
 
-        if (!Pattern.matches("^https?://github.com/([A-Za-z0-9._-]+)$", gitHub)) {
-            throw new IllegalArgumentException("Wrong link format.");
+        if (!gitHub.isEmpty()) {
+            if (!Pattern.matches("^https?://github.com/([A-Za-z0-9._-]+)$", gitHub)) {
+                throw new IllegalArgumentException("Wrong link format.");
+            }
         }
         this.gitLinks.set(gitHub);
+    }
+
+    /**
+     * Méthode appelée lors de la sérialisation binaire (cf. code situé dans la classe "Serializer")
+     * @param out Le stream "Object" de sortie
+     * @throws IOException Une exception jetée lors d'un erreur lors de l'écriture
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.writeObject(this.firstName.getValue());
+        out.writeObject(this.lastName.getValue());
+        out.writeObject(this.surName.getValue());
+        out.writeObject(this.gender.getValue());
+        out.writeObject(this.birthDate);
+        out.writeObject(this.adress.getValue());
+        out.writeObject(this.zipCode.getValue());
+        out.writeObject(this.personalPhone.getValue());
+        out.writeObject(this.professionalPhone.getValue());
+        out.writeObject(this.mail.getValue());
+        out.writeObject(this.gitLinks.getValue());
+    }
+
+    /**
+     * Méthode appelée lors de la désérilaisation d'un objet de la classe "Contact".
+     * 
+     * @param in Le stream "Object" de lecture de l'objet
+     * @throws IOException Exception jetée lors d'un problème de lecture (fichier innaccessible, mauvais formattage du contenu du fichier...)
+     * @throws ClassNotFoundException Exception jetée lors d'une transformation d'Object en un autre type 
+     */
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        this.firstName = new SimpleStringProperty((String) in.readObject());
+        this.lastName = new SimpleStringProperty((String) in.readObject());
+        this.surName = new SimpleStringProperty((String) in.readObject());
+        this.gender = new SimpleStringProperty((String) in.readObject());
+        this.birthDate = (LocalDate) in.readObject();
+        this.adress = new SimpleStringProperty((String) in.readObject());
+        this.zipCode = new SimpleStringProperty((String) in.readObject());
+        this.personalPhone = new SimpleStringProperty((String) in.readObject());
+        this.professionalPhone = new SimpleStringProperty((String) in.readObject());
+        this.mail = new SimpleStringProperty((String) in.readObject());
+        this.gitLinks = new SimpleStringProperty((String) in.readObject());
     }
 }

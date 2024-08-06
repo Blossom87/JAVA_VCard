@@ -25,6 +25,15 @@ public class App extends Application {
         stage.show();
     }
 
+    @Override
+    public void stop() {
+        
+        // Lancement de la serialization.
+        
+
+    }
+
+
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }

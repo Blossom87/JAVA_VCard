@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:4.0
+N:Lagaffe;Gaston;Man
+FN:Gaston Lagaffe
+ADR:4 Rue de la Gaffe;11111
+EMAIL:mail@gmail.com
+TEL:0555055505;0666066606
+ORG:https://github.com/Blossom87
+END:VCARD

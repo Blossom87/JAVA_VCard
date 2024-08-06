@@ -2,8 +2,10 @@ package fr.afpa;
 
 import java.io.DataOutput;
 import java.io.File;
+import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -31,7 +33,7 @@ import javafx.scene.input.MouseEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class MainWindowController implements java.io.Serializable {
+public class MainWindowController {
 
     @FXML
     private Button exportSelectionButton; // Assurez-vous que le fx:id correspond dans le fichier FXML
@@ -73,11 +75,6 @@ public class MainWindowController implements java.io.Serializable {
 
     @FXML
     private DatePicker dateOfBirthPicker;
-
-    public void getDate(ActionEvent event) {
-
-        LocalDate myDate = dateOfBirthPicker.getValue();
-    }
 
     @FXML
     private TextField textFieldAdressField;
@@ -123,8 +120,13 @@ public class MainWindowController implements java.io.Serializable {
 
         LocalDate birthDate = LocalDate.of(2020, 1, 8);
 
-        contacts.add(new Contact("Gaston", "Lagaffe", "Lagaf", "Man", birthDate, "4 Rue de la Gaffe", "11111",
-                "0555055505", "0666066606", "mail", "test"));
+        // contacts.add(new Contact("Gaston", "Lagaffe", "Lagaf", "Man", birthDate, "4 Rue de la Gaffe", "11111",
+        //         "0555055505", "0666066606", "mail@gmail.com", "https://github.com/Blossom87"));
+
+        Deserializer deserializer = new Deserializer();
+        List<Contact> deserializedContacts = deserializer.loadList();
+
+        contacts.addAll(deserializedContacts);
 
         ObservableList<String> exportTypes = FXCollections.observableArrayList();
         exportTypes.add("vCard");
@@ -140,6 +142,12 @@ public class MainWindowController implements java.io.Serializable {
         changeButton.setVisible(false);
     }
 
+    /* TODO vérifier si la méthode n'est pas obsolète, la supprimer si oui */
+    public void getDate(ActionEvent event) {
+
+        LocalDate myDate = dateOfBirthPicker.getValue();
+    }
+
     @FXML
     public void tableViewClicked(MouseEvent clickEvent) {
 
@@ -151,21 +159,25 @@ public class MainWindowController implements java.io.Serializable {
         // getSelectedItem (methode de SelectionModel) recupere un objet de la classe
         // contact selectionné
         Contact selectedContact = tableView2C.getSelectionModel().getSelectedItem();
-        deleteButton.setVisible(true);
-        changeButton.setVisible(true);
-        textFieldFirstName.setText(selectedContact.getFirstName().getValue());
-        textFieldLastName.setText(selectedContact.getLastName().getValue());
-        textFieldSurnameField.setText(selectedContact.getSurname().getValue());
-        dateOfBirthPicker.setValue(selectedContact.getBirthDate());
-        if (selectedContact.getGender().getValue().equals("Man")) {
-            genderBox.getSelectionModel().select(0);
+        if (selectedContact != null) {
+            deleteButton.setVisible(true);
+            changeButton.setVisible(true);
+            textFieldFirstName.setText(selectedContact.getFirstName().getValue());
+            textFieldLastName.setText(selectedContact.getLastName().getValue());
+            textFieldSurnameField.setText(selectedContact.getSurname().getValue());
+            dateOfBirthPicker.setValue(selectedContact.getBirthDate());
+
+            if (selectedContact.getGender().getValue().equals("Man")) {
+                genderBox.getSelectionModel().select(0);
+            }
+
+            textFieldAdressField.setText(selectedContact.getAddress().getValue());
+            textFieldZipCodeField.setText(String.valueOf(selectedContact.getZipCode().getValue()));
+            textFieldPersonalPhoneField.setText(String.valueOf(selectedContact.getPersonalPhone().getValue()));
+            textFieldProfessionalPhoneField.setText(String.valueOf(selectedContact.getProfessionalPhone().getValue()));
+            textFieldMail.setText(String.valueOf(selectedContact.getMail().getValue()));
+            textFieldGitField.setText(String.valueOf(selectedContact.getGitLinks().getValue()));
         }
-        textFieldAdressField.setText(selectedContact.getAddress().getValue());
-        textFieldZipCodeField.setText(String.valueOf(selectedContact.getZipCode().getValue()));
-        textFieldPersonalPhoneField.setText(String.valueOf(selectedContact.getPersonalPhone().getValue()));
-        textFieldProfessionalPhoneField.setText(String.valueOf(selectedContact.getProfessionalPhone().getValue()));
-        textFieldMail.setText(String.valueOf(selectedContact.getMail().getValue()));
-        textFieldGitField.setText(String.valueOf(selectedContact.getGitLinks().getValue()));
     }
 
     @FXML
@@ -243,6 +255,21 @@ public class MainWindowController implements java.io.Serializable {
         // Récupérer les données de la TableView
         List<Contact> contacts = tableView2C.getItems();
 
+        if (contacts.isEmpty()) {
+            System.out.println("no contacts available.");
+            return; // Sortir de la méthode si aucune sélection n'est faite
+        }
+
+        String selectedExportType = exportTypesBox.getSelectionModel().getSelectedItem();
+
+        
+
+        if (selectedExportType.equals("vCard")) {
+
+            VCardSerializer serializer = new VCardSerializer();
+            serializer.serialize(contacts.get(0));
+        }
+
         // Initialiser Jackson ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -275,7 +302,8 @@ public class MainWindowController implements java.io.Serializable {
     }
 
     /**
-     * Méthode qui se déclenche lors du clic pour l'export d'une sélection unique ou multiple (sélection avec Ctrl + Clic par exemple)
+     * Méthode qui se déclenche lors du clic pour l'export d'une sélection unique ou
+     * multiple (sélection avec Ctrl + Clic par exemple)
      */
     @FXML
     private void handleExportSelection() {
@@ -294,12 +322,12 @@ public class MainWindowController implements java.io.Serializable {
         // 2 cas possible : soit vCard, soit JSon
         if (selectedExportType.equals("vCard")) {
 
-            ////////// TODO implémenter la solution pour vCard
-            /// ????????????????
-            
+            VCardSerializer serializer = new VCardSerializer();
+            serializer.serialize(selectedContacts.get(0));
+
         } else { // cas du JSON
 
-             // Initialiser Jackson ObjectMapper
+            // Initialiser Jackson ObjectMapper
             ObjectMapper objectMapper = new ObjectMapper();
 
             try {
@@ -328,7 +356,7 @@ public class MainWindowController implements java.io.Serializable {
                 System.out.println("Error occurred: " + e.getMessage());
             }
         }
-       
+
     }
 
     @FXML
@@ -363,6 +391,9 @@ public class MainWindowController implements java.io.Serializable {
 
         // Ajouter le nouveau contact à la TableView
         tableView2C.getItems().add(newContact);
+
+        Serializer serializer = new Serializer();
+        serializer.save(new ArrayList<>(contacts));
 
         // Réinitialiser les champs du formulaire
         textFieldLastName.clear();
