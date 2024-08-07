@@ -1,0 +1,14 @@
+.backgroundColor{
+    -fx-background-color: linear-gradient(#8ffd9e, #ffffff)
+}
+
+.textField {
+    -fx-background-color: #8ffd9e, #ffffff;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-text-fill: #bbffbb;
+    -fx-display-caret: false;
+}
+
+.newContact {
+    -fx-shape: "M 150 450 Q 100 350 150 250 Q 400 250 650 250 Q 700 350 650 450 Q 350 450 150 450 ";
+}   

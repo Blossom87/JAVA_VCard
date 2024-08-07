@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -7,75 +8,99 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.controllers.MainWindowController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.controllers.MainWindowController">
    <children>
-      <AnchorPane prefHeight="768.0" prefWidth="310.0">
+      <VBox HBox.hgrow="ALWAYS">
          <children>
-            <TableView fx:id="tableView2C" layoutX="27.0" layoutY="76.0" onMouseClicked="#tableViewClicked" prefHeight="663.0" prefWidth="264.0">
+            <TextField fx:id="searchField" prefHeight="35.0" prefWidth="264.0" promptText="Enter a contact." />
+            <TableView fx:id="tableView2C" onMouseClicked="#tableViewClicked" prefHeight="663.0" prefWidth="66.0">
               <columns>
-                <TableColumn fx:id="tableCLName" minWidth="0.0" prefWidth="124.0" text="Last Name" />
-                  <TableColumn fx:id="tableCFName" prefWidth="139.0" text="First Name" />
+                <TableColumn fx:id="tableCLName" minWidth="0.0" prefWidth="167.0" text="Last Name" />
+                  <TableColumn fx:id="tableCFName" prefWidth="164.0" text="First Name" />
               </columns>
             </TableView>
-            <TextField fx:id="searchField" layoutX="27.0" layoutY="32.0" prefHeight="35.0" prefWidth="264.0" promptText="Enter a contact." />
+            <Label alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="463.0" text="Cahier des charges : Javacard |  Réalisé par Yoann Beune et Élodie Linsac. Afpa 2024©" />
          </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="768.0" prefWidth="759.0">
+         <padding>
+            <Insets left="40.0" right="40.0" top="40.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="768.0" prefWidth="741.0" spacing="35.0">
          <children>
-            <VBox layoutX="208.0" layoutY="142.0" prefHeight="506.0" prefWidth="509.0" spacing="5.0">
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="509.0" spacing="50.0">
                <children>
-                  <TextField fx:id="textFieldLastName" prefHeight="45.0" prefWidth="316.0" promptText="Enter your last name." />
-                  <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="316.0" promptText="Enter your first name." />
-                  <TextField fx:id="textFieldSurnameField" prefHeight="45.0" prefWidth="316.0" promptText="(OPTIONAL) Enter your surname." />
-                  <ChoiceBox fx:id="genderBox" prefHeight="41.0" prefWidth="514.0" />
-                  <DatePicker fx:id="dateOfBirthPicker" onAction="#getDate" prefHeight="42.0" prefWidth="516.0" promptText="DD/MM/YYYY" />
-                  <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your address." />
-                  <TextField fx:id="textFieldZipCodeField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your ZIP code." />
-                  <TextField fx:id="textFieldPersonalPhoneField" prefHeight="45.0" prefWidth="316.0" promptText="Enter your phone number." />
-                  <TextField fx:id="textFieldProfessionalPhoneField" prefHeight="45.0" prefWidth="316.0" promptText="(OPTIONAL) Enter your professional phone number." />
-                  <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="316.0" promptText="Enter your mail." />
-                  <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="316.0" promptText="(OPTIONAL) Enter your Git link." />
-               </children>
-            </VBox>
-            <VBox layoutX="82.0" layoutY="142.0" prefHeight="506.0" prefWidth="126.0" spacing="5.0">
-               <children>
-                  <Label prefHeight="45.0" prefWidth="316.0" text="Last Name :" />
-                  <Label prefHeight="45.0" prefWidth="316.0" text="First Name :" />
-                  <Label prefHeight="45.0" prefWidth="301.0" text="Surname :" />
-                  <Label prefHeight="45.0" prefWidth="280.0" text="Gender :" />
-                  <Label prefHeight="45.0" prefWidth="260.0" text="Date of Birth :" />
-                  <Label prefHeight="45.0" prefWidth="253.0" text="Address :" />
-                  <Label prefHeight="45.0" prefWidth="253.0" text="Zip Code :" />
-                  <Label prefHeight="45.0" prefWidth="253.0" text="Personal Phone :" />
-                  <Label prefHeight="45.0" prefWidth="253.0" text="Professional Phone :" />
-                  <Label prefHeight="45.0" prefWidth="351.0" text="Mail :" />
-                  <Label prefHeight="45.0" prefWidth="303.0" text="GitHub / GitLab :" />
-               </children>
-            </VBox>
-            <HBox alignment="CENTER" layoutX="208.0" layoutY="64.0" prefHeight="45.0" prefWidth="509.0" spacing="50.0">
-               <children>
+                  <VBox alignment="BOTTOM_CENTER">
+                     <children>
+                        <ChoiceBox fx:id="exportTypesBox" prefHeight="35.0" prefWidth="79.0" styleClass="newContact" />
+                     </children>
+                  </VBox>
                   <VBox prefHeight="45.0" prefWidth="112.0">
                      <children>
-                        <Button fx:id="exportSelectionButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleExportSelection" prefHeight="45.0" prefWidth="106.0" text="Export Selection" />
+                        <Button fx:id="exportSelectionButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleExportSelection" prefHeight="45.0" prefWidth="106.0" styleClass="newContact" text="Export Selection" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="112.0">
                      <children>
-                        <Button fx:id="exportAllButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleExportAll" prefHeight="69.0" prefWidth="130.0" text="Export All" />
+                        <Button fx:id="exportAllButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleExportAll" prefHeight="69.0" prefWidth="130.0" styleClass="newContact" text="Export All" />
                      </children>
                   </VBox>
                   <VBox prefHeight="55.0" prefWidth="112.0">
                      <children>
-                        <Button fx:id="newContact" alignment="CENTER" mnemonicParsing="false" onAction="#handleNewContact" prefHeight="69.0" prefWidth="130.0" text="Add New Contact" />
+                        <Button fx:id="newContact" alignment="CENTER" mnemonicParsing="false" onAction="#handleNewContact" prefHeight="69.0" prefWidth="130.0" styleClass="newContact" text="New Contact" />
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="214.0" layoutY="661.0" prefHeight="45.0" prefWidth="509.0" spacing="50.0">
+            <GridPane prefWidth="475.0" vgap="15.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="136.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0" minWidth="10.0" prefWidth="435.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Last Name :" />
+                  <TextField fx:id="textFieldLastName" prefHeight="30.0" prefWidth="260.0" promptText="Enter your last name." styleClass="textField" GridPane.columnIndex="1" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="First Name :" GridPane.rowIndex="1" />
+                  <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="200.0" promptText="Enter your first name." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Surname :" GridPane.rowIndex="2" />
+                  <TextField fx:id="textFieldSurnameField" prefHeight="45.0" prefWidth="200.0" promptText="(OPTIONAL) Enter your surname." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Gender :" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="genderBox" prefHeight="30.0" prefWidth="522.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Date of Birth :" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="dateOfBirthPicker" onAction="#getDate" prefHeight="30.0" prefWidth="588.0" promptText="DD/MM/YYYY" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Address :" GridPane.rowIndex="5" />
+                  <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="200.0" promptText="Enter your address." GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Zip Code :" GridPane.rowIndex="6" />
+                  <TextField fx:id="textFieldZipCodeField" prefHeight="45.0" prefWidth="200.0" promptText="Enter your ZIP code." GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Personal Phone :" GridPane.rowIndex="7" />
+                  <TextField fx:id="textFieldPersonalPhoneField" prefHeight="45.0" prefWidth="200.0" promptText="Enter your phone number." GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Professional Phone :" GridPane.rowIndex="8" />
+                  <TextField fx:id="textFieldProfessionalPhoneField" prefHeight="45.0" prefWidth="200.0" promptText="(OPTIONAL) Enter your professional phone number." GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="Mail :" GridPane.rowIndex="9" />
+                  <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="200.0" promptText="Enter your mail." GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label prefHeight="45.0" prefWidth="200.0" text="GitHub / GitLab :" GridPane.rowIndex="10" />
+                  <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="200.0" promptText="(OPTIONAL) Enter your Git link." GridPane.columnIndex="1" GridPane.rowIndex="10" />
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="509.0" spacing="50.0">
                <children>
                   <VBox prefHeight="45.0" prefWidth="112.0">
                      <children>
@@ -89,8 +114,10 @@
                   </VBox>
                </children>
             </HBox>
-            <ChoiceBox fx:id="exportTypesBox" layoutX="82.0" layoutY="64.0" prefHeight="45.0" prefWidth="106.0" />
          </children>
-      </AnchorPane>
+         <padding>
+            <Insets right="40.0" />
+         </padding>
+      </VBox>
    </children>
 </HBox>

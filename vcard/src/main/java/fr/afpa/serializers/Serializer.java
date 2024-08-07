@@ -1,14 +1,10 @@
 package fr.afpa.serializers;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
 import fr.afpa.models.Contact;
-import javafx.collections.FXCollections;
 
 public class Serializer {
 
@@ -18,6 +14,7 @@ public class Serializer {
             FileOutputStream fileOutputStream = new FileOutputStream("contact.ser");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(contact);
+            objectOutputStream.close();
         } catch (Exception exception) {
             System.out.println("Error Serializer" + exception.getMessage());
             exception.printStackTrace();
@@ -30,6 +27,7 @@ public class Serializer {
             FileOutputStream fileOutputStream = new FileOutputStream("contacts.ser");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(contacts);
+            objectOutputStream.close();
         } catch (Exception exception) {
             System.out.println("Error Serializers" + exception.getMessage());
             exception.printStackTrace();

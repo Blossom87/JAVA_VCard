@@ -1,13 +1,11 @@
 package fr.afpa.controllers;
 
-import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -26,9 +25,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import fr.afpa.App;
 import fr.afpa.models.Contact;
 import fr.afpa.serializers.Deserializer;
 import fr.afpa.serializers.JSonSerializer;
@@ -148,7 +149,11 @@ public class MainWindowController {
         genderBox.getItems().addAll(genders);
         deleteButton.setVisible(false);
         changeButton.setVisible(false);
+        exportTypesBox.setVisible(false);
+        exportAllButton.setVisible(false);
+        exportSelectionButton.setVisible(false);
         genderBox.setValue("Select your gender.");
+        
 
         FilteredList<Contact> filteredList = new FilteredList<>(contacts, b -> true);
 
@@ -194,6 +199,9 @@ public class MainWindowController {
         if (selectedContact != null) {
             deleteButton.setVisible(true);
             changeButton.setVisible(true);
+            exportTypesBox.setVisible(true);
+            exportAllButton.setVisible(true);
+            exportSelectionButton.setVisible(true);
             textFieldFirstName.setText(selectedContact.getFirstName().getValue());
             textFieldLastName.setText(selectedContact.getLastName().getValue());
             textFieldSurnameField.setText(selectedContact.getSurname().getValue());
@@ -251,6 +259,9 @@ public class MainWindowController {
 
         changeButton.setVisible(false);
         deleteButton.setVisible(false);
+        exportTypesBox.setVisible(false);
+        exportAllButton.setVisible(false);
+        exportSelectionButton.setVisible(false);
     }
 
     @FXML
@@ -279,7 +290,23 @@ public class MainWindowController {
             alert.setHeaderText(null);
             alert.setContentText("Please select a contact to delete.");
             alert.showAndWait();
+
         }
+
+        textFieldLastName.clear();
+        textFieldFirstName.clear();
+        textFieldSurnameField.clear();
+        genderBox.getSelectionModel().clearSelection();
+        dateOfBirthPicker.setValue(null);
+        textFieldAdressField.clear();
+        textFieldZipCodeField.clear();
+        textFieldPersonalPhoneField.clear();
+        textFieldProfessionalPhoneField.clear();
+        textFieldMail.clear();
+        textFieldGitField.clear();
+        exportTypesBox.setVisible(false);
+        exportAllButton.setVisible(false);
+        exportSelectionButton.setVisible(false);
     }
 
     @FXML
@@ -303,6 +330,10 @@ public class MainWindowController {
             JSonSerializer serializer = new JSonSerializer();
             serializer.exportMultipleContacts(contacts);
         }
+
+        exportTypesBox.setVisible(false);
+        exportAllButton.setVisible(false);
+        exportSelectionButton.setVisible(false);
     }
 
     /**
@@ -333,8 +364,8 @@ public class MainWindowController {
 
             JSonSerializer serializer = new JSonSerializer();
             serializer.exportSingleContact(selectedContacts);
+        }
     }
-}
 
     @FXML
     private void handleNewContact() {
@@ -363,8 +394,7 @@ public class MainWindowController {
                 newContact.getMail().getValue().isEmpty() ||
                 newContact.getZipCode().getValue().isEmpty()) {
             throw new IllegalArgumentException("Contact format error.");
-        }
-        ;
+        };
 
         // Ajouter le nouveau contact à la TableView
         contacts.add(newContact);
@@ -384,11 +414,9 @@ public class MainWindowController {
         textFieldProfessionalPhoneField.clear();
         textFieldMail.clear();
         textFieldGitField.clear();
+
+
+        // ouverture d'une popup
+        App.successGif();
     }
-
-    @FXML
-    private void searchField() {
-
-    }
-
 }

@@ -18,6 +18,7 @@ public class Deserializer {
             FileInputStream fileInputStream = new FileInputStream("contact.ser");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             deserializedContact = (Contact) objectInputStream.readObject();
+            objectInputStream.close();
         } catch (Exception exception) {
             System.out.println("Error Deserializer" + exception.getMessage());
         }

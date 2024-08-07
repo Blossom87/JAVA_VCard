@@ -1,14 +1,20 @@
 package fr.afpa;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import javafx.scene.Group;
 
 /**
  * JavaFX App
@@ -21,15 +27,12 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("MainWindow"), 1024, 768);
 
-        stage.setTitle("JAVA_Card");
         stage.setScene(scene);
         stage.show();
     }
 
     @Override
     public void stop() {
-        
-        // Lancement de la serialization.
 
     }
 
@@ -48,4 +51,36 @@ public class App extends Application {
         System.out.println("Hello le monde !");
         launch();
     }
+
+    public static Stage successGif() {
+        
+        int size = 600;
+        // chargement de l'image
+        Image gif = new Image(App.class.getResource("yippee-happy.gif").toString());
+
+        ImageView splash = new ImageView(gif);
+        splash.setStyle("-fx-background-color: transparent;");
+        splash.setFitWidth(size);
+        splash.setFitHeight(size);
+        splash.setPickOnBounds(true);
+        Pane splashLayout = new Pane();
+        splashLayout.getChildren().add(splash);
+        final Stage initStage = new Stage();
+        Group group = new Group();
+        group.getChildren().add(splashLayout);
+        Scene successScene = new Scene(group, size, size);
+        successScene.setFill(Color.TRANSPARENT);
+        initStage.initStyle(StageStyle.TRANSPARENT);
+        initStage.setWidth(size);
+        initStage.setHeight(size);
+        initStage.setScene(successScene);
+        initStage.setAlwaysOnTop(true);
+        initStage.show();
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished( event -> initStage.close() );
+        delay.play();
+
+        return initStage;
+}
 }

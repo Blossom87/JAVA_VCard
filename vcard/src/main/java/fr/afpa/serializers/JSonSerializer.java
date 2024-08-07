@@ -50,6 +50,7 @@ public class JSonSerializer {
         // Initialiser Jackson ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
 
+        
         try {
             // Transformer chaque contact sélectionné en structure JSON
             List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
@@ -69,7 +70,7 @@ public class JSonSerializer {
             }).collect(Collectors.toList());
 
             // Écrire les données sélectionnées dans un fichier JSON
-            objectMapper.writeValue(new File(contacts.getFirstName().get() +".json"), jsonContacts);
+            objectMapper.writeValue(new File("Contact.json"), jsonContacts);
             System.out.println("Exportation done in selected_contacts.json");
         } catch (Exception e) {
             e.printStackTrace();
