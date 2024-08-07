@@ -1,10 +1,12 @@
-package fr.afpa;
+package fr.afpa.serializers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.afpa.models.Contact;
 
 public class Deserializer {
 
@@ -34,7 +36,7 @@ public class Deserializer {
 
             objectInputStream.close();
         } catch (Exception exception) {
-            System.out.println("Error Deserializer" + exception.getMessage());
+            System.out.println("Error Deserializer: " + exception.getMessage());
         }
         return deserializedContact;
     }

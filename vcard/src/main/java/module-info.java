@@ -4,7 +4,7 @@ module fr.afpa {
     requires com.fasterxml.jackson.databind;
     requires javafx.base;
 
-
     opens fr.afpa to javafx.fxml;
+    opens fr.afpa.controllers to javafx.fxml;
     exports fr.afpa;
 }

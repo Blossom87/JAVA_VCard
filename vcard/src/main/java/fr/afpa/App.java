@@ -21,6 +21,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("MainWindow"), 1024, 768);
 
+        stage.setTitle("JAVA_Card");
         stage.setScene(scene);
         stage.show();
     }
@@ -29,7 +30,6 @@ public class App extends Application {
     public void stop() {
         
         // Lancement de la serialization.
-        
 
     }
 

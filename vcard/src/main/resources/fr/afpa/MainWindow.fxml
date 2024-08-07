@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.MainWindowController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.controllers.MainWindowController">
    <children>
       <AnchorPane prefHeight="768.0" prefWidth="310.0">
          <children>
@@ -70,7 +70,7 @@
                   </VBox>
                   <VBox prefHeight="55.0" prefWidth="112.0">
                      <children>
-                        <Button fx:id="newContact" alignment="CENTER" mnemonicParsing="false" onAction="#handleNewContact" prefHeight="69.0" prefWidth="130.0" text="New Contact" />
+                        <Button fx:id="newContact" alignment="CENTER" mnemonicParsing="false" onAction="#handleNewContact" prefHeight="69.0" prefWidth="130.0" text="Add New Contact" />
                      </children>
                   </VBox>
                </children>

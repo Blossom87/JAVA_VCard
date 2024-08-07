@@ -1,4 +1,4 @@
-package fr.afpa;
+package fr.afpa.models;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

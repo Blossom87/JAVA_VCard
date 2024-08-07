@@ -1,4 +1,4 @@
-package fr.afpa;
+package fr.afpa.serializers;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
+import fr.afpa.models.Contact;
 import javafx.collections.FXCollections;
 
 public class Serializer {

@@ -1,0 +1,15 @@
+[
+    {
+        "firstName": "Gaston",
+        "lastName": "Lagaffe",
+        "surName": "Lagaf",
+        "gender": "Man",
+        "birthDate": "2020-01-08",
+        "address": "4 Rue de la Gaffe",
+        "zipcode": "11111",
+        "personalPhone": "0555055505",
+        "professionalPhone": "0666066606",
+        "mail": "mail@gmail.com",
+        "gitLink": "https://github.com/Blossom87"
+    }
+]

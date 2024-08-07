@@ -1,4 +1,4 @@
-package fr.afpa;
+package fr.afpa.controllers;
 
 import java.io.File;
 import java.net.URL;
@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -26,6 +28,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import fr.afpa.models.Contact;
+import fr.afpa.serializers.Deserializer;
+import fr.afpa.serializers.JSonSerializer;
+import fr.afpa.serializers.Serializer;
+import fr.afpa.serializers.VCardSerializer;
 
 public class MainWindowController {
 
@@ -122,8 +130,12 @@ public class MainWindowController {
         Deserializer deserializer = new Deserializer();
         List<Contact> deserializedContacts = deserializer.loadList();
 
-        contacts.addAll(deserializedContacts);
-
+        if (deserializedContacts == null) {
+            System.err.println("Pas de contacts à charger.");
+        } else {
+            contacts.addAll(deserializedContacts);
+        }
+        
         ObservableList<String> exportTypes = FXCollections.observableArrayList();
         exportTypes.add("vCard");
         exportTypes.add("JSON");
@@ -136,7 +148,32 @@ public class MainWindowController {
         genderBox.getItems().addAll(genders);
         deleteButton.setVisible(false);
         changeButton.setVisible(false);
+        genderBox.setValue("Select your gender.");
+
+        FilteredList<Contact> filteredList = new FilteredList<>(contacts, b -> true);
+        
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(contacts -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (contacts.getLastName().getValue().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (contacts.getFirstName().getValue().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        SortedList<Contact> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(tableView2C.comparatorProperty());
+        tableView2C.setItems(sortedList);
     }
+
 
     /* TODO vérifier si la méthode n'est pas obsolète, la supprimer si oui */
     public void getDate(ActionEvent event) {
@@ -233,7 +270,7 @@ public class MainWindowController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 // Supprimer le contact de la TableView
-                tableView2C.getItems().remove(selectedContact);
+                contacts.remove(selectedContact);
                 System.out.println("Contact deleted successfully.");
             }
         } else {
@@ -265,37 +302,8 @@ public class MainWindowController {
             
             } else {
 
-                // Initialiser Jackson ObjectMapper
-                ObjectMapper objectMapper = new ObjectMapper();
-                try {
-                    // Transformer chaque contact en structure JSON
-                    List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
-                        ObjectNode jsonContact = objectMapper.createObjectNode();
-                        jsonContact.put("firstName", contact.getFirstName().get()); // Utiliser .get() pour obtenir la
-                                                                                    // valeur
-                                                                                    // String
-                        jsonContact.put("lastName", contact.getLastName().get());
-                        jsonContact.put("surName", contact.getSurname().get());
-                        jsonContact.put("gender", contact.getGender().get());
-                        jsonContact.put("birthDate", contact.getBirthDate().toString()); // Assurez-vous que c'est une
-                                                                                         // chaîne
-                        jsonContact.put("address", contact.getAddress().get());
-                        jsonContact.put("zipcode", contact.getZipCode().get());
-                        jsonContact.put("personalPhone", contact.getPersonalPhone().get());
-                        jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
-                        jsonContact.put("mail", contact.getMail().get());
-                        jsonContact.put("gitLink", contact.getGitLinks().get());
-                        return jsonContact;
-                    }).collect(Collectors.toList());
-
-                    // Écrire les données dans un fichier JSON
-                    objectMapper.writeValue(new File("contacts.json"), jsonContacts);
-                    System.out.println("Exportation done in contacts.json");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Error occurred: " + e.getMessage());
-                }
+                JSonSerializer serializer = new JSonSerializer();
+                serializer.exportMultipleContacts(contacts);
             }
         }
     
@@ -389,7 +397,7 @@ public class MainWindowController {
         ;
 
         // Ajouter le nouveau contact à la TableView
-        tableView2C.getItems().add(newContact);
+        contacts.add(newContact);
 
         Serializer serializer = new Serializer();
         serializer.save(new ArrayList<>(contacts));
@@ -406,6 +414,12 @@ public class MainWindowController {
         textFieldProfessionalPhoneField.clear();
         textFieldMail.clear();
         textFieldGitField.clear();
+    }
+
+    @FXML
+    private void searchField() {
+
+        
     }
 
 }
