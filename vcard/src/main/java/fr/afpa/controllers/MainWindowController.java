@@ -288,6 +288,8 @@ public class MainWindowController {
 
         }
 
+        App.deleteGIF();
+
         textFieldLastName.clear();
         textFieldFirstName.clear();
         textFieldSurnameField.clear();

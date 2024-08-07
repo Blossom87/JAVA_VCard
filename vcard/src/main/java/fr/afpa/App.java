@@ -83,4 +83,36 @@ public class App extends Application {
 
         return initStage;
 }
+
+public static Stage deleteGIF() {
+        
+    int size = 600;
+    // chargement de l'image
+    Image gif = new Image(App.class.getResource("thanos.gif").toString());
+
+    ImageView splash = new ImageView(gif);
+    splash.setStyle("-fx-background-color: transparent;");
+    splash.setFitWidth(size);
+    splash.setFitHeight(size);
+    splash.setPickOnBounds(true);
+    Pane splashLayout = new Pane();
+    splashLayout.getChildren().add(splash);
+    final Stage initStage = new Stage();
+    Group group = new Group();
+    group.getChildren().add(splashLayout);
+    Scene successScene = new Scene(group, size, size);
+    successScene.setFill(Color.TRANSPARENT);
+    initStage.initStyle(StageStyle.TRANSPARENT);
+    initStage.setWidth(size);
+    initStage.setHeight(size);
+    initStage.setScene(successScene);
+    initStage.setAlwaysOnTop(true);
+    initStage.show();
+
+    PauseTransition delay = new PauseTransition(Duration.seconds(2));
+    delay.setOnFinished( event -> initStage.close() );
+    delay.play();
+
+    return initStage;
+}
 }

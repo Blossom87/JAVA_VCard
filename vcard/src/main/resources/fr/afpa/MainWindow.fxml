@@ -16,7 +16,7 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.controllers.MainWindowController">
    <children>
-      <VBox HBox.hgrow="ALWAYS">
+      <VBox styleClass="backgroundColor" stylesheets="@style.css" HBox.hgrow="ALWAYS">
          <children>
             <TextField fx:id="searchField" prefHeight="35.0" prefWidth="264.0" promptText="Enter a contact." />
             <TableView fx:id="tableView2C" onMouseClicked="#tableViewClicked" prefHeight="663.0" prefWidth="66.0">
@@ -25,13 +25,13 @@
                   <TableColumn fx:id="tableCFName" prefWidth="164.0" text="First Name" />
               </columns>
             </TableView>
-            <Label alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="463.0" text="Cahier des charges : Javacard |  Réalisé par Yoann Beune et Élodie Linsac. Afpa 2024©" />
+            <Label prefHeight="22.0" prefWidth="463.0" text="Réalisé par Yoann Beune et Élodie Linsac. Afpa 2024©" />
          </children>
          <padding>
             <Insets left="40.0" right="40.0" top="40.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="768.0" prefWidth="741.0" spacing="35.0">
+      <VBox alignment="CENTER" prefHeight="768.0" prefWidth="741.0" spacing="35.0" styleClass="backgroundColor" stylesheets="@style.css">
          <children>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="509.0" spacing="50.0">
                <children>
@@ -97,19 +97,19 @@
                   <Label prefHeight="45.0" prefWidth="200.0" text="Mail :" GridPane.rowIndex="9" />
                   <TextField fx:id="textFieldMail" prefHeight="45.0" prefWidth="200.0" promptText="Enter your mail." GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Label prefHeight="45.0" prefWidth="200.0" text="GitHub / GitLab :" GridPane.rowIndex="10" />
-                  <TextField fx:id="textFieldGitField" prefHeight="45.0" prefWidth="200.0" promptText="(OPTIONAL) Enter your Git link." GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <TextField fx:id="textFieldGitField" prefHeight="47.0" prefWidth="435.0" promptText="(OPTIONAL) Enter your Git link." GridPane.columnIndex="1" GridPane.rowIndex="10" />
                </children>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="509.0" spacing="50.0">
                <children>
                   <VBox prefHeight="45.0" prefWidth="112.0">
                      <children>
-                        <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteContact" prefHeight="45.0" prefWidth="114.0" text="Delete" />
+                        <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteContact" prefHeight="45.0" prefWidth="114.0" styleClass="newContact" stylesheets="@style.css" text="Delete" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="112.0">
                      <children>
-                        <Button fx:id="changeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleChangeContact" prefHeight="69.0" prefWidth="130.0" text="Change" />
+                        <Button fx:id="changeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleChangeContact" prefHeight="69.0" prefWidth="130.0" styleClass="newContact" stylesheets="@style.css" text="Change" />
                      </children>
                   </VBox>
                </children>
