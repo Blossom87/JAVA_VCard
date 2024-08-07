@@ -45,6 +45,35 @@ public class JSonSerializer {
         }
     }
 
-    public void exportSingleContact(Contact contact) {
+    public void exportSingleContact(List<Contact> contacts) {
+
+        // Initialiser Jackson ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            // Transformer chaque contact sélectionné en structure JSON
+            List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
+                ObjectNode jsonContact = objectMapper.createObjectNode();
+                jsonContact.put("firstName", contact.getFirstName().get());
+                jsonContact.put("lastName", contact.getLastName().get());
+                jsonContact.put("surName", contact.getSurname().get());
+                jsonContact.put("gender", contact.getGender().get());
+                jsonContact.put("birthDate", contact.getBirthDate().toString());
+                jsonContact.put("address", contact.getAddress().get());
+                jsonContact.put("zipcode", contact.getZipCode().get());
+                jsonContact.put("personalPhone", contact.getPersonalPhone().get());
+                jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
+                jsonContact.put("mail", contact.getMail().get());
+                jsonContact.put("gitLink", contact.getGitLinks().get());
+                return jsonContact;
+            }).collect(Collectors.toList());
+
+            // Écrire les données sélectionnées dans un fichier JSON
+            objectMapper.writeValue(new File(contacts.getFirstName().get() +".json"), jsonContacts);
+            System.out.println("Exportation done in selected_contacts.json");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error occurred: " + e.getMessage());
+        }
     }
 }

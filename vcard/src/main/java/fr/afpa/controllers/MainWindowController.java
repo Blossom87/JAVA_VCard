@@ -135,7 +135,7 @@ public class MainWindowController {
         } else {
             contacts.addAll(deserializedContacts);
         }
-        
+
         ObservableList<String> exportTypes = FXCollections.observableArrayList();
         exportTypes.add("vCard");
         exportTypes.add("JSON");
@@ -151,7 +151,7 @@ public class MainWindowController {
         genderBox.setValue("Select your gender.");
 
         FilteredList<Contact> filteredList = new FilteredList<>(contacts, b -> true);
-        
+
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(contacts -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -173,7 +173,6 @@ public class MainWindowController {
         sortedList.comparatorProperty().bind(tableView2C.comparatorProperty());
         tableView2C.setItems(sortedList);
     }
-
 
     /* TODO vérifier si la méthode n'est pas obsolète, la supprimer si oui */
     public void getDate(ActionEvent event) {
@@ -294,19 +293,17 @@ public class MainWindowController {
             return; // Sortir de la méthode si aucune sélection n'est faite
         }
 
-            if (selectedExportType.equals("vCard")) {
+        if (selectedExportType.equals("vCard")) {
 
-                VCardSerializer serializer = new VCardSerializer();
-                serializer.exportMultipleContacts(contacts); 
-                
-            
-            } else {
+            VCardSerializer serializer = new VCardSerializer();
+            serializer.exportMultipleContacts(contacts);
 
-                JSonSerializer serializer = new JSonSerializer();
-                serializer.exportMultipleContacts(contacts);
-            }
+        } else {
+
+            JSonSerializer serializer = new JSonSerializer();
+            serializer.exportMultipleContacts(contacts);
         }
-    
+    }
 
     /**
      * Méthode qui se déclenche lors du clic pour l'export d'une sélection unique ou
@@ -332,39 +329,12 @@ public class MainWindowController {
             VCardSerializer serializer = new VCardSerializer();
             serializer.exportSingleContact(selectedContacts.get(0));
 
-        } else { // cas du JSON
+        } else {
 
-            // Initialiser Jackson ObjectMapper
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            try {
-                // Transformer chaque contact sélectionné en structure JSON
-                List<ObjectNode> jsonContacts = selectedContacts.stream().map(contact -> {
-                    ObjectNode jsonContact = objectMapper.createObjectNode();
-                    jsonContact.put("firstName", contact.getFirstName().get());
-                    jsonContact.put("lastName", contact.getLastName().get());
-                    jsonContact.put("surName", contact.getSurname().get());
-                    jsonContact.put("gender", contact.getGender().get());
-                    jsonContact.put("birthDate", contact.getBirthDate().toString());
-                    jsonContact.put("address", contact.getAddress().get());
-                    jsonContact.put("zipcode", contact.getZipCode().get());
-                    jsonContact.put("personalPhone", contact.getPersonalPhone().get());
-                    jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
-                    jsonContact.put("mail", contact.getMail().get());
-                    jsonContact.put("gitLink", contact.getGitLinks().get());
-                    return jsonContact;
-                }).collect(Collectors.toList());
-
-                // Écrire les données sélectionnées dans un fichier JSON
-                objectMapper.writeValue(new File("selected_contacts.json"), jsonContacts);
-                System.out.println("Exportation done in selected_contacts.json");
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Error occurred: " + e.getMessage());
-            }
-        }
-
+            JSonSerializer serializer = new JSonSerializer();
+            serializer.exportSingleContact(selectedContacts);
     }
+}
 
     @FXML
     private void handleNewContact() {
@@ -419,7 +389,6 @@ public class MainWindowController {
     @FXML
     private void searchField() {
 
-        
     }
 
 }
