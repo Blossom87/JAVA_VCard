@@ -118,11 +118,6 @@ public class MainWindowController {
 
         LocalDate birthDate = LocalDate.of(2020, 1, 8);
 
-        // contacts.add(new Contact("Gaston", "Lagaffe", "Lagaf", "Man", birthDate, "4
-        // Rue de la Gaffe", "11111",
-        // "0555055505", "0666066606", "mail@gmail.com",
-        // "https://github.com/Blossom87"));
-
         Deserializer deserializer = new Deserializer();
         List<Contact> deserializedContacts = deserializer.loadList();
 

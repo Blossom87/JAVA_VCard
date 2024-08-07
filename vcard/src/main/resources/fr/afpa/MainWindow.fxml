@@ -16,10 +16,10 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.controllers.MainWindowController">
    <children>
-      <VBox styleClass="backgroundColor" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+      <VBox spacing="5.0" styleClass="backgroundColor" stylesheets="@style.css" HBox.hgrow="ALWAYS">
          <children>
-            <TextField fx:id="searchField" prefHeight="35.0" prefWidth="264.0" promptText="Enter a contact." />
-            <TableView fx:id="tableView2C" onMouseClicked="#tableViewClicked" prefHeight="663.0" prefWidth="66.0">
+            <TextField fx:id="searchField" prefHeight="35.0" prefWidth="264.0" promptText="Enter a contact." styleClass="viewport" stylesheets="@style.css" />
+            <TableView fx:id="tableView2C" onMouseClicked="#tableViewClicked" prefHeight="663.0" prefWidth="66.0" stylesheets="@style.css">
               <columns>
                 <TableColumn fx:id="tableCLName" minWidth="0.0" prefWidth="167.0" text="Last Name" />
                   <TableColumn fx:id="tableCFName" prefWidth="164.0" text="First Name" />
@@ -104,12 +104,12 @@
                <children>
                   <VBox prefHeight="45.0" prefWidth="112.0">
                      <children>
-                        <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteContact" prefHeight="45.0" prefWidth="114.0" styleClass="newContact" stylesheets="@style.css" text="Delete" />
+                        <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteContact" prefHeight="45.0" prefWidth="114.0" styleClass="newContact2" stylesheets="@style.css" text="Delete" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="112.0">
                      <children>
-                        <Button fx:id="changeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleChangeContact" prefHeight="69.0" prefWidth="130.0" styleClass="newContact" stylesheets="@style.css" text="Change" />
+                        <Button fx:id="changeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleChangeContact" prefHeight="69.0" prefWidth="130.0" styleClass="newContact2" stylesheets="@style.css" text="Change" />
                      </children>
                   </VBox>
                </children>
