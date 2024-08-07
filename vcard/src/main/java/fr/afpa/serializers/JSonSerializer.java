@@ -70,7 +70,7 @@ public class JSonSerializer {
             }).collect(Collectors.toList());
 
             // Écrire les données sélectionnées dans un fichier JSON
-            objectMapper.writeValue(new File("Contact.json"), jsonContacts);
+            objectMapper.writeValue(new File(contacts.getFirst() +".json"), jsonContacts);
             System.out.println("Exportation done in selected_contacts.json");
         } catch (Exception e) {
             e.printStackTrace();
