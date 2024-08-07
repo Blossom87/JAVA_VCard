@@ -77,7 +77,7 @@
               </rowConstraints>
                <children>
                   <Label prefHeight="45.0" prefWidth="200.0" text="Last Name :" />
-                  <TextField fx:id="textFieldLastName" prefHeight="30.0" prefWidth="260.0" promptText="Enter your last name." styleClass="textField" GridPane.columnIndex="1" />
+                  <TextField fx:id="textFieldLastName" prefHeight="30.0" prefWidth="260.0" promptText="Enter your last name." GridPane.columnIndex="1" />
                   <Label prefHeight="45.0" prefWidth="200.0" text="First Name :" GridPane.rowIndex="1" />
                   <TextField fx:id="textFieldFirstName" prefHeight="45.0" prefWidth="200.0" promptText="Enter your first name." GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label prefHeight="45.0" prefWidth="200.0" text="Surname :" GridPane.rowIndex="2" />
