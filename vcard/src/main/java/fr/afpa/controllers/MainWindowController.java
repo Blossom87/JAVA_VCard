@@ -148,6 +148,7 @@ public class MainWindowController {
         genderBox.setValue("Select your gender.");
         
 
+        // FilteredList : Filtre le contenu d'une observable list par prédiction. Met à jour en temps réel l'observable list avec le listener lié au searchField.
         FilteredList<Contact> filteredList = new FilteredList<>(contacts, b -> true);
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -250,6 +251,17 @@ public class MainWindowController {
             alert.showAndWait();
         }
 
+        textFieldLastName.clear();
+        textFieldFirstName.clear();
+        textFieldSurnameField.clear();
+        genderBox.getSelectionModel().clearSelection();
+        dateOfBirthPicker.setValue(null);
+        textFieldAdressField.clear();
+        textFieldZipCodeField.clear();
+        textFieldPersonalPhoneField.clear();
+        textFieldProfessionalPhoneField.clear();
+        textFieldMail.clear();
+        textFieldGitField.clear();
         changeButton.setVisible(false);
         deleteButton.setVisible(false);
         exportTypesBox.setVisible(false);
@@ -398,7 +410,7 @@ public class MainWindowController {
         contacts.add(newContact);
 
         // Serialization de la liste de contact. La serialization effectue une mise à jour à l'ajout d'un nouveau contact.
-        
+
         Serializer serializer = new Serializer();
         serializer.save(new ArrayList<>(contacts));
 

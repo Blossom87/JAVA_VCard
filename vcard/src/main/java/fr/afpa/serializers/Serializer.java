@@ -33,5 +33,4 @@ public class Serializer {
             exception.printStackTrace();
         }
     }
-
 }
