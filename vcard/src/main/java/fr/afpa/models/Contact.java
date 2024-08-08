@@ -120,11 +120,11 @@ public class Contact implements Serializable {
 
     public void setMail(String mail) {
 
-        if (!Pattern.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", mail)) {
-            throw new IllegalArgumentException("Wrong mail format.");
-        } else {
-            this.mail.set(mail);
-        }
+        if (!mail.isEmpty()) {
+            if (!Pattern.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", mail)) {
+                throw new IllegalArgumentException("Wrong mail format.");
+            } 
+        } this.mail.set(mail);
     }
 
     public StringProperty getGitLinks() {
@@ -142,7 +142,9 @@ public class Contact implements Serializable {
     }
 
     /**
-     * Méthode appelée lors de la sérialisation binaire (cf. code situé dans la classe "Serializer")
+     * Méthode appelée lors de la sérialisation binaire (cf. code situé dans la
+     * classe "Serializer")
+     * 
      * @param out Le stream "Object" de sortie
      * @throws IOException Une exception jetée lors d'un erreur lors de l'écriture
      */
@@ -164,8 +166,11 @@ public class Contact implements Serializable {
      * Méthode appelée lors de la désérilaisation d'un objet de la classe "Contact".
      * 
      * @param in Le stream "Object" de lecture de l'objet
-     * @throws IOException Exception jetée lors d'un problème de lecture (fichier innaccessible, mauvais formattage du contenu du fichier...)
-     * @throws ClassNotFoundException Exception jetée lors d'une transformation d'Object en un autre type 
+     * @throws IOException            Exception jetée lors d'un problème de lecture
+     *                                (fichier innaccessible, mauvais formattage du
+     *                                contenu du fichier...)
+     * @throws ClassNotFoundException Exception jetée lors d'une transformation
+     *                                d'Object en un autre type
      */
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         this.firstName = new SimpleStringProperty((String) in.readObject());

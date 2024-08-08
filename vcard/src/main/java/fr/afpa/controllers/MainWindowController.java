@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -116,8 +115,6 @@ public class MainWindowController {
     @FXML
     public void initialize() {
 
-        LocalDate birthDate = LocalDate.of(2020, 1, 8);
-
         // Deserializer : Utilisation de ObservableList contact en List afin de charger la liste serializer et de rendre les données lisibles dans le Main controller.
         // La Deserialisation ne s'effectue QUE au lancement de l'application.
 
@@ -129,7 +126,7 @@ public class MainWindowController {
         } else {
             contacts.addAll(deserializedContacts);
         }
-
+        
         ObservableList<String> exportTypes = FXCollections.observableArrayList();
         exportTypes.add("vCard");
         exportTypes.add("JSON");
@@ -173,11 +170,7 @@ public class MainWindowController {
         tableView2C.setItems(sortedList);
     }
 
-    /* TODO vérifier si la méthode n'est pas obsolète, la supprimer si oui */
-    public void getDate(ActionEvent event) {
-
-        LocalDate myDate = dateOfBirthPicker.getValue();
-    }
+    
 
     @FXML
     public void tableViewClicked(MouseEvent clickEvent) {
@@ -298,6 +291,9 @@ public class MainWindowController {
 
         }
 
+        Serializer serializer = new Serializer();
+        serializer.save(new ArrayList<>(contacts));
+
         App.deleteGIF();
 
         textFieldLastName.clear();
@@ -353,7 +349,10 @@ public class MainWindowController {
     @FXML
     private void handleExportSelection() {
         // Récupérer les données sélectionnées de la TableView
+
         List<Contact> selectedContacts = tableView2C.getSelectionModel().getSelectedItems();
+        
+
 
         // Vérifier s'il y a des éléments sélectionnés
         if (selectedContacts.isEmpty()) {
@@ -393,8 +392,12 @@ public class MainWindowController {
         String git = textFieldGitField.getText();
 
         // Créer un nouvel objet Contact
-        Contact newContact = new Contact(lastName, firstName, surname, gender, dateOfBirth, address, zipCode,
-                personalPhone, professionalPhone, email, git);
+        Contact newContact = new Contact(lastName, firstName,
+                                        surname, gender,
+                                        dateOfBirth, address,
+                                        zipCode, personalPhone,
+                                        professionalPhone, email, git);
+
         // Vérification de l'instanciation des Fields Texts.
         if (newContact.getLastName().getValue().isEmpty() ||
                 newContact.getFirstName().getValue().isEmpty() ||
@@ -405,6 +408,9 @@ public class MainWindowController {
                 newContact.getZipCode().getValue().isEmpty()) {
             throw new IllegalArgumentException("Contact format error.");
         };
+
+        newContact.setMail(email);
+        newContact.setGitLinks(git);
 
         // Ajouter le nouveau contact à la TableView
         contacts.add(newContact);

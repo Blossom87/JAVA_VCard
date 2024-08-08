@@ -99,7 +99,7 @@
                   <Label prefHeight="45.0" prefWidth="200.0" text="Gender :" GridPane.rowIndex="3" />
                   <ChoiceBox fx:id="genderBox" prefHeight="30.0" prefWidth="522.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label prefHeight="45.0" prefWidth="200.0" text="Date of Birth :" GridPane.rowIndex="4" />
-                  <DatePicker fx:id="dateOfBirthPicker" onAction="#getDate" prefHeight="30.0" prefWidth="588.0" promptText="DD/MM/YYYY" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="dateOfBirthPicker" prefHeight="30.0" prefWidth="588.0" promptText="DD/MM/YYYY" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label prefHeight="45.0" prefWidth="200.0" text="Address :" GridPane.rowIndex="5" />
                   <TextField fx:id="textFieldAdressField" prefHeight="45.0" prefWidth="200.0" promptText="Enter your address." GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label prefHeight="45.0" prefWidth="200.0" text="Zip Code :" GridPane.rowIndex="6" />
