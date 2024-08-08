@@ -1,0 +1,15 @@
+[
+    {
+        "firstName": "Hank",
+        "lastName": "Ulay",
+        "surName": "théo",
+        "gender": "Man",
+        "birthDate": "2002-04-27",
+        "address": "paris quelque part",
+        "zipcode": "66000",
+        "personalPhone": "0664701230",
+        "professionalPhone": "",
+        "mail": "theo.sarrazin47200@gmail.com",
+        "gitLink": ""
+    }
+]
