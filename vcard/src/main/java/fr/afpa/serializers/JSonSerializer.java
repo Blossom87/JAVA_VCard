@@ -45,7 +45,7 @@ public class JSonSerializer {
         }
     }
 
-    public void exportSingleContact(List<Contact> contacts) {
+    public void exportSingleContact(Contact contact) {
 
         // Initialiser Jackson ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
@@ -53,7 +53,7 @@ public class JSonSerializer {
         
         try {
             // Transformer chaque contact sélectionné en structure JSON
-            List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
+            
                 ObjectNode jsonContact = objectMapper.createObjectNode();
                 jsonContact.put("firstName", contact.getFirstName().get());
                 jsonContact.put("lastName", contact.getLastName().get());
@@ -66,11 +66,11 @@ public class JSonSerializer {
                 jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
                 jsonContact.put("mail", contact.getMail().get());
                 jsonContact.put("gitLink", contact.getGitLinks().get());
-                return jsonContact;
-            }).collect(Collectors.toList());
+                
+   
 
             // Écrire les données sélectionnées dans un fichier JSON
-            objectMapper.writeValue(new File(contacts.getFirst() +".json"), jsonContacts);
+            objectMapper.writeValue(new File(contact.getFirstName() +".json"), contact);
             System.out.println("Exportation done in selected_contacts.json");
         } catch (Exception e) {
             e.printStackTrace();

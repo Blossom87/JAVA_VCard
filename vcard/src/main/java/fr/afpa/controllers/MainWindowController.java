@@ -351,7 +351,6 @@ public class MainWindowController {
         // Récupérer les données sélectionnées de la TableView
 
         List<Contact> selectedContacts = tableView2C.getSelectionModel().getSelectedItems();
-        
 
 
         // Vérifier s'il y a des éléments sélectionnés
@@ -372,7 +371,7 @@ public class MainWindowController {
         } else {
 
             JSonSerializer serializer = new JSonSerializer();
-            serializer.exportSingleContact(selectedContacts);
+            serializer.exportSingleContact();
         }
     }
 
