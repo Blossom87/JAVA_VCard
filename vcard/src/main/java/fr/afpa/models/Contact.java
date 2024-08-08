@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

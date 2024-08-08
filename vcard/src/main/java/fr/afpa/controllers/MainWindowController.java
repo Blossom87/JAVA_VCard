@@ -290,6 +290,8 @@ public class MainWindowController {
             }
         } else {
             // Alerter l'utilisateur si aucun contact n'est sélectionné
+            // le point sert à récupérer quelque chose de la classe(appel de la méthode ou recupérer un attribut) 
+            // static : attribut ou méthode accessible à partir d'une classe et non d'un objet 
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("No Selection");
             alert.setHeaderText(null);

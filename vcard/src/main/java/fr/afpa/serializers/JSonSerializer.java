@@ -16,7 +16,7 @@ public class JSonSerializer {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             // Transformer chaque contact en structure JSON
-            List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
+            List<ObjectNode> jsonContact = contacts.stream().map(contact -> {
                 ObjectNode jsonContact = objectMapper.createObjectNode();
                 jsonContact.put("firstName", contact.getFirstName().get()); // Utiliser .get() pour obtenir la
                                                                             // valeur
@@ -35,6 +35,7 @@ public class JSonSerializer {
                 return jsonContact;
             }).collect(Collectors.toList());
 
+            Object jsonContacts;
             // Écrire les données dans un fichier JSON
             objectMapper.writeValue(new File("contacts.json"), jsonContacts);
             System.out.println("Exportation done in contacts.json");
@@ -44,8 +45,9 @@ public class JSonSerializer {
             System.out.println("Error occurred: " + e.getMessage());
         }
     }
+ // corriger lexport en all à single (pour de vrai) [pas de list]
 
-    public void exportSingleContact(List<Contact> contacts) {
+    public void exportSingleContact(Contact contacts) {
 
         // Initialiser Jackson ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
@@ -53,7 +55,7 @@ public class JSonSerializer {
         
         try {
             // Transformer chaque contact sélectionné en structure JSON
-            List<ObjectNode> jsonContacts = contacts.stream().map(contact -> {
+            ObjectNode jsonContacts = contacts.stream().map(contact -> {
                 ObjectNode jsonContact = objectMapper.createObjectNode();
                 jsonContact.put("firstName", contact.getFirstName().get());
                 jsonContact.put("lastName", contact.getLastName().get());
@@ -68,9 +70,9 @@ public class JSonSerializer {
                 jsonContact.put("gitLink", contact.getGitLinks().get());
                 return jsonContact;
             }).collect(Collectors.toList());
-
+           
             // Écrire les données sélectionnées dans un fichier JSON
-            objectMapper.writeValue(new File(contacts.getFirst() +".json"), jsonContacts);
+            objectMapper.writeValue(new File(contacts.getFirstname()+".json"), jsonContacts);
             System.out.println("Exportation done in selected_contacts.json");
         } catch (Exception e) {
             e.printStackTrace();
