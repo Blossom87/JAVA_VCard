@@ -35,7 +35,6 @@ public class App extends Application {
 
     }
 
-
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
@@ -45,14 +44,13 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-
     public static void main(String[] args) {
         System.out.println("Hello le monde !");
         launch();
     }
 
     public static Stage successGif() {
-        
+
         int size = 600;
         // chargement de l'image
         Image gif = new Image(App.class.getResource("yippee-happy.gif").toString());
@@ -77,41 +75,41 @@ public class App extends Application {
         initStage.show();
 
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
-        delay.setOnFinished( event -> initStage.close() );
+        delay.setOnFinished(event -> initStage.close());
         delay.play();
 
         return initStage;
-}
+    }
 
-public static Stage deleteGIF() {
-        
-    int size = 600;
-    // chargement de l'image
-    Image gif = new Image(App.class.getResource("thanos.gif").toString());
+    public static Stage deleteGIF() {
 
-    ImageView splash = new ImageView(gif);
-    splash.setStyle("-fx-background-color: transparent;");
-    splash.setFitWidth(size);
-    splash.setFitHeight(size);
-    splash.setPickOnBounds(true);
-    Pane splashLayout = new Pane();
-    splashLayout.getChildren().add(splash);
-    final Stage initStage = new Stage();
-    Group group = new Group();
-    group.getChildren().add(splashLayout);
-    Scene successScene = new Scene(group, size, size);
-    successScene.setFill(Color.TRANSPARENT);
-    initStage.initStyle(StageStyle.TRANSPARENT);
-    initStage.setWidth(size);
-    initStage.setHeight(size);
-    initStage.setScene(successScene);
-    initStage.setAlwaysOnTop(true);
-    initStage.show();
+        int size = 600;
+        // chargement de l'image
+        Image gif = new Image(App.class.getResource("thanos.gif").toString());
 
-    PauseTransition delay = new PauseTransition(Duration.seconds(2));
-    delay.setOnFinished( event -> initStage.close() );
-    delay.play();
+        ImageView splash = new ImageView(gif);
+        splash.setStyle("-fx-background-color: transparent;");
+        splash.setFitWidth(size);
+        splash.setFitHeight(size);
+        splash.setPickOnBounds(true);
+        Pane splashLayout = new Pane();
+        splashLayout.getChildren().add(splash);
+        final Stage initStage = new Stage();
+        Group group = new Group();
+        group.getChildren().add(splashLayout);
+        Scene successScene = new Scene(group, size, size);
+        successScene.setFill(Color.TRANSPARENT);
+        initStage.initStyle(StageStyle.TRANSPARENT);
+        initStage.setWidth(size);
+        initStage.setHeight(size);
+        initStage.setScene(successScene);
+        initStage.setAlwaysOnTop(true);
+        initStage.show();
 
-    return initStage;
-}
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> initStage.close());
+        delay.play();
+
+        return initStage;
+    }
 }

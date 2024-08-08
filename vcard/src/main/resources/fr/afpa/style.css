@@ -33,3 +33,7 @@
     -fx-text-box-border: red ;
     -fx-focus-color: red ;
   }
+
+  .backgroundColorText {
+    -fx-background-color: #ffffff
+  }

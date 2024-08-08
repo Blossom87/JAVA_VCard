@@ -35,6 +35,7 @@ public class VCardSerializer {
         return vCardContent;
     }
 
+    // Instanciation de vCardContent vide, utilisation de List afin récuperer les informations de contact en String.
     public void exportMultipleContacts(List<Contact> contacts) {
         String vCardContent = "";
         for (Contact contact : contacts) {

@@ -118,6 +118,9 @@ public class MainWindowController {
 
         LocalDate birthDate = LocalDate.of(2020, 1, 8);
 
+        // Deserializer : Utilisation de ObservableList contact en List afin de charger la liste serializer et de rendre les données lisibles dans le Main controller.
+        // La Deserialisation ne s'effectue QUE au lancement de l'application.
+
         Deserializer deserializer = new Deserializer();
         List<Contact> deserializedContacts = deserializer.loadList();
 
@@ -314,11 +317,15 @@ public class MainWindowController {
 
         if (selectedExportType.equals("vCard")) {
 
+            // Apelle de la méthode permettant de serializer tous les contacts de la ObservableList.
+            // Ici pour vCard. Après vérification de la combo box de type.
             VCardSerializer serializer = new VCardSerializer();
             serializer.exportMultipleContacts(contacts);
 
         } else {
 
+            // Apelle de la méthode permettant de serializer tous les contacts de la ObservableList.
+            // Ici pour jSon. Après vérification de la combo box de type.
             JSonSerializer serializer = new JSonSerializer();
             serializer.exportMultipleContacts(contacts);
         }
@@ -330,7 +337,6 @@ public class MainWindowController {
 
     /**
      * Méthode qui se déclenche lors du clic pour l'export d'une sélection unique ou
-     * multiple (sélection avec Ctrl + Clic par exemple)
      */
     @FXML
     private void handleExportSelection() {
@@ -391,6 +397,8 @@ public class MainWindowController {
         // Ajouter le nouveau contact à la TableView
         contacts.add(newContact);
 
+        // Serialization de la liste de contact. La serialization effectue une mise à jour à l'ajout d'un nouveau contact.
+        
         Serializer serializer = new Serializer();
         serializer.save(new ArrayList<>(contacts));
 
