@@ -1,6 +1,5 @@
 package fr.afpa.controllers;
 
-import java.io.FileOutputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
