@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import fr.afpa.models.Contact;
 
@@ -49,28 +50,26 @@ public class JSonSerializer {
 
         // Initialiser Jackson ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
 
-        
         try {
             // Transformer chaque contact sélectionné en structure JSON
-            
-                ObjectNode jsonContact = objectMapper.createObjectNode();
-                jsonContact.put("firstName", contact.getFirstName().get());
-                jsonContact.put("lastName", contact.getLastName().get());
-                jsonContact.put("surName", contact.getSurname().get());
-                jsonContact.put("gender", contact.getGender().get());
-                jsonContact.put("birthDate", contact.getBirthDate().toString());
-                jsonContact.put("address", contact.getAddress().get());
-                jsonContact.put("zipcode", contact.getZipCode().get());
-                jsonContact.put("personalPhone", contact.getPersonalPhone().get());
-                jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
-                jsonContact.put("mail", contact.getMail().get());
-                jsonContact.put("gitLink", contact.getGitLinks().get());
-                
-   
+
+            ObjectNode jsonContact = objectMapper.createObjectNode();
+            jsonContact.put("firstName", contact.getFirstName().get());
+            jsonContact.put("lastName", contact.getLastName().get());
+            jsonContact.put("surName", contact.getSurname().get());
+            jsonContact.put("gender", contact.getGender().get());
+            jsonContact.put("birthDate", contact.getBirthDate().toString());
+            jsonContact.put("address", contact.getAddress().get());
+            jsonContact.put("zipcode", contact.getZipCode().get());
+            jsonContact.put("personalPhone", contact.getPersonalPhone().get());
+            jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
+            jsonContact.put("mail", contact.getMail().get());
+            jsonContact.put("gitLink", contact.getGitLinks().get());
 
             // Écrire les données sélectionnées dans un fichier JSON
-            objectMapper.writeValue(new File(contact.getFirstName() +".json"), contact);
+            objectMapper.writeValue(new File(contact.getFirstName().get() + ".json"), jsonContact);
             System.out.println("Exportation done in selected_contacts.json");
         } catch (Exception e) {
             e.printStackTrace();

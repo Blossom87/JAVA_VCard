@@ -1,5 +1,6 @@
 package fr.afpa.controllers;
 
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -352,7 +353,6 @@ public class MainWindowController {
 
         List<Contact> selectedContacts = tableView2C.getSelectionModel().getSelectedItems();
 
-
         // Vérifier s'il y a des éléments sélectionnés
         if (selectedContacts.isEmpty()) {
             System.out.println("no contacts selected.");
@@ -371,7 +371,7 @@ public class MainWindowController {
         } else {
 
             JSonSerializer serializer = new JSonSerializer();
-            serializer.exportSingleContact();
+            serializer.exportSingleContact(selectedContacts.get(0));
         }
     }
 

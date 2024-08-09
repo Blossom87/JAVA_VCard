@@ -5,8 +5,10 @@ module fr.afpa {
     requires javafx.base;
     requires javafx.graphics;
     requires java.desktop;
+    requires com.fasterxml.jackson.datatype.jsr310;
 
     opens fr.afpa to javafx.fxml;
     opens fr.afpa.controllers to javafx.fxml;
     exports fr.afpa;
+    exports fr.afpa.models;
 }
