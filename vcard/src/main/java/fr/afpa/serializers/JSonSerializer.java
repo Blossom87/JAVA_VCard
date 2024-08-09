@@ -58,15 +58,23 @@ public class JSonSerializer {
             ObjectNode jsonContact = objectMapper.createObjectNode();
             jsonContact.put("firstName", contact.getFirstName().get());
             jsonContact.put("lastName", contact.getLastName().get());
+            if (!contact.getSurname().get().isEmpty()) {
+                jsonContact.put("surName", contact.getSurname().get());
+            }
             jsonContact.put("surName", contact.getSurname().get());
             jsonContact.put("gender", contact.getGender().get());
             jsonContact.put("birthDate", contact.getBirthDate().toString());
             jsonContact.put("address", contact.getAddress().get());
             jsonContact.put("zipcode", contact.getZipCode().get());
             jsonContact.put("personalPhone", contact.getPersonalPhone().get());
-            jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
+            if (!contact.getProfessionalPhone().get().isEmpty()) {
+                jsonContact.put("professionalPhone", contact.getProfessionalPhone().get());
+            }
+
             jsonContact.put("mail", contact.getMail().get());
-            jsonContact.put("gitLink", contact.getGitLinks().get());
+            if (!contact.getGitLinks().get().isEmpty()) {
+                jsonContact.put("gitLink", contact.getGitLinks().get());
+            }
 
             // Écrire les données sélectionnées dans un fichier JSON
             objectMapper.writeValue(new File(contact.getFirstName().get() + ".json"), jsonContact);
